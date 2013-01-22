@@ -242,9 +242,6 @@ globalkeys = awful.util.table.join(
 
 
     -- audio buttons
-    awful.key({ modkey }, "slash", function () awful.util.spawn("rhythmbox-client --play-pause") end),
-    awful.key({ modkey }, ".", function () awful.util.spawn("rhythmbox-client --next") end),
-    awful.key({ modkey }, ",", function () awful.util.spawn("rhythmbox-client --previous") end),
     awful.key({ modkey }, "Up", function () awful.util.spawn("amixer -c 0 set Master 5dB+") end),
     awful.key({ modkey }, "Down", function () awful.util.spawn("amixer -c 0 set Master 5dB-") end),
 
@@ -357,7 +354,6 @@ awful.rules.rules = {
     --  properties = { floating = true } },
     { rule = { class = "Eog" },
       properties = { floating = true } },
-   -- Set Firefox to always map on tags number 2 of screen 1.
     { rule = { class = "Firefox" },
       properties = { border_width = 1 } },
 }
