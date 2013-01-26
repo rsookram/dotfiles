@@ -31,15 +31,8 @@ layouts =
 {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
---  awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
---  awful.layout.suit.fair,
---  awful.layout.suit.fair.horizontal,
---  awful.layout.suit.spiral,
---  awful.layout.suit.spiral.dwindle,
---  awful.layout.suit.max,
---  awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier
 }
 -- }}}
@@ -58,12 +51,9 @@ end
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
--- { "restart", awesome.restart }
--- { "quit", awesome.quit }
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, }
-                                --  { "open terminal", terminal }
                                   }
                         })
 
@@ -75,14 +65,6 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
 
---Rhythmbox widget
-rbwidget = widget({ type = "textbox", align = "right" })
-rbwidget.text = " "
-
---Total bandwidth usage widget
-bwwidget = widget({ type = "textbox", align = "right" })
-bwwidget.text = "|"
-
 -- CPU widget
 cpuwidget = widget({ type = "textbox" })
 vicious.register(cpuwidget, vicious.widgets.cpu, "CPU <span color='#E6264B'>$1% $2% $3% $4%</span> | ")
@@ -93,7 +75,7 @@ vicious.register(memwidget, vicious.widgets.mem, "RAM <span color='#E6264B'>$2MB
 
 -- Network widget
 netwidget = widget({ type = "textbox" })
-vicious.register(netwidget, vicious.widgets.net, "↓ <span color='#E6264B'>${eth0 down_kb}</span> ↑ <span color='#E6264B'>${eth0 up_kb}</span> ")
+vicious.register(netwidget, vicious.widgets.net, "↓ <span color='#E6264B'>${eth0 down_kb}</span> ↑ <span color='#E6264B'>${eth0 up_kb}</span> |")
 
 -- Create a systray
 mysystray = widget({ type = "systray" })
@@ -163,18 +145,14 @@ for s = 1, screen.count() do
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
         {
-         -- mylauncher,
             mytaglist[s],
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
         },
-     -- mylayoutbox[s],
         mytextclock,
-	    bwwidget,
 	    netwidget,
 	    memwidget,
 	    cpuwidget,
-	    rbwidget,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -223,7 +201,6 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    -- awful.key({ modkey,           }, "q", function () mymainmenu:show(true)        end),
 
     -- Layout manipulation
     awful.key({ modkey,           }, "Return", function () awful.client.swap.byidx( 1) end),
@@ -231,13 +208,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1)  end),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1)  end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
---  awful.key({ modkey,           }, "Tab",
---      function ()
---          awful.client.focus.history.previous()
---          if client.focus then
---              client.focus:raise()
---          end
---      end),
 
 
 
@@ -252,23 +222,12 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
-    --awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
-    --awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
-    --awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
-    --awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     -- Prompt
     awful.key({ modkey },            "p",     function () mypromptbox[mouse.screen]:run() end)
 
---    awful.key({ modkey }, "x",
---              function ()
---                  awful.prompt.run({ prompt = "Run Lua code: " },
---                  mypromptbox[mouse.screen].widget,
---                  awful.util.eval, nil,
---                  awful.util.getdir("cache") .. "/history_eval")
---              end)
 )
 
 clientkeys = awful.util.table.join(
@@ -276,7 +235,6 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
---  awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
     awful.key({ modkey,           }, "n",      function (c) c.minimized = not c.minimized    end),
     awful.key({ modkey,           }, "m",
@@ -350,8 +308,6 @@ awful.rules.rules = {
                      buttons = clientbuttons } },
     { rule = { class = "mplayer2" },
       properties = { floating = true, border_width = 0 } },
-    --{ rule = { class = "gimp" },
-    --  properties = { floating = true } },
     { rule = { class = "Eog" },
       properties = { floating = true } },
     { rule = { class = "Firefox" },
@@ -362,9 +318,6 @@ awful.rules.rules = {
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 client.add_signal("manage", function (c, startup)
-    -- Add a titlebar
-    -- awful.titlebar.add(c, { modkey = modkey })
-
     -- Enable sloppy focus
     c:add_signal("mouse::enter", function(c)
         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
