@@ -1,4 +1,0 @@
-"/usr/bin/xvkbd -xsendevent -text "\C\[Page_Down]""
-	m:0x0 + b:8
-"/usr/bin/xvkbd -xsendevent -text "\C\[Page_Up]""
-	m:0x0 + b:9
