@@ -1,23 +1,49 @@
-syntax on
-set showcmd
+" Treat long lines as break lines
+map j gj
+map k gk
+
 set title
-set ignorecase
+
+set wildmenu
+
+set showcmd
+set incsearch
+
 set noerrorbells
 set novisualbell
-set number
-set ruler
-set expandtab
-set textwidth=79
-set ai
-set ci
-set tabstop=8
-set softtabstop=4
-set shiftwidth=4
-filetype plugin indent on
 
+set number
+
+set ruler
+
+set expandtab
+
+set softtabstop=2
+set tabstop=2
+set shiftwidth=2
+
+set textwidth=79
+
+set autoindent
+set copyindent
+
+set nocp
+set noswapfile
+
+set autoread
+
+set splitbelow
+set splitright
+
+execute pathogen#infect()
+
+filetype plugin indent on
+filetype plugin on
+
+set omnifunc=syntaxcomplete#Complete
 set completeopt=menu
 
-autocmd BufRead *.py nmap <F5> :!python %<CR>
-autocmd BufRead *.c nmap <F5> :!gcc % && ./a.out<CR>
-
 inoremap ,, <C-x><C-o>
+
+syntax on
+
