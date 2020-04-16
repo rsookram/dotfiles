@@ -1,4 +1,3 @@
-settingsbackup
-==============
+# rsookram's dotfiles
 
-dotfiles and other settings files
+dotfiles, including other settings files
