@@ -43,7 +43,7 @@ function vif
 end
 
 function cdr
-  set dir (ls -1d ~/src/*/ ~/third-party/*/ | fzf --height 50 --reverse --delimiter '/' --with-nth 5 --preview 'ls {}')
+  set dir (ls -1d ~/src/*/ ~/third-party/*/ | fzf --height 50 --reverse --delimiter '/' --with-nth 5)
 
   if test $status -eq 0
     cd $dir
