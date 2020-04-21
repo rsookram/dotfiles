@@ -64,10 +64,10 @@ command! -bang -nargs=* Rg
 \ <bang>0)
 
 command! -bang RG call fzf#vim#grep(
-      \ 'inc-search ""',
+      \ 'fzf-vim-rg ""',
       \ 1,
       \ fzf#vim#with_preview({
-      \   'options': ['--phony', '--bind', 'change:reload:inc-search {q}'],
+      \   'options': ['--phony', '--bind', 'change:reload:fzf-vim-rg {q}'],
       \   'window': {'width': 0.8, 'height': 0.6}
       \ }, 'down:40%'),
       \ 0)
