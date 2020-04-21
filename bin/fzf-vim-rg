@@ -1,0 +1,10 @@
+#!/bin/bash
+
+first="$1"
+
+if [ -z "$first" ]; then
+  echo ''
+  exit
+fi
+
+rg --column --fixed-strings --line-number --no-heading --color=always --smart-case "$@" || true
