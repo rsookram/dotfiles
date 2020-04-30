@@ -90,3 +90,6 @@ set -gx EDITOR $VISUAL
 # bat
 set -gx BAT_THEME 'Solarized (light)'
 set -gx BAT_STYLE 'plain'
+
+# Disable auto-update with homebrew
+set -gx HOMEBREW_NO_AUTO_UPDATE 1
