@@ -50,8 +50,6 @@ function cdr
   end
 end
 
-alias utc 'date -u'
-
 alias bc 'bc --quiet --mathlib'
 
 alias wifi-settings 'nm-connection-editor'
@@ -71,14 +69,15 @@ set -gx LESS_TERMCAP_us \e'[32m'
 
 set -gx JAVA_HOME ~/tools/android-studio/jre
 
+set ANDROID_SDK ~/Android/Sdk/
+
 set -gx PATH $PATH ~/bin
 set -gx PATH $PATH /usr/local/go/bin
 set -gx PATH $PATH ~/go/bin
-set -gx PATH $PATH ~/.fzf/bin/
 set -gx PATH ~/.cargo/bin $PATH
 set -gx PATH ~/.nimble/bin $PATH
-set -gx PATH $PATH ~/Android/Sdk/platform-tools
-set -gx PATH $PATH ~/Android/Sdk/build-tools/28.0.3
+set -gx PATH $PATH $ANDROID_SDK/platform-tools
+set -gx PATH $PATH $ANDROID_SDK/build-tools/28.0.3
 
 # Python user base binary directory
 set -gx PATH $PATH ~/.local/bin
