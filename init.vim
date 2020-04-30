@@ -101,6 +101,8 @@ colorscheme solarized
 highlight EndOfBuffer ctermfg=bg
 
 
+autocmd BufRead,BufNewFile *.md setlocal spell
+
 " Treat long lines as break lines
 map j gj
 map k gk
