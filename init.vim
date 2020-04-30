@@ -82,6 +82,7 @@ let g:ale_fixers = {
 \   'rust': ['rustfmt'],
 \}
 let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
+let g:ale_rust_cargo_clippy_options = '--warn clippy::pedantic'
 
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_enter = 0
