@@ -73,6 +73,9 @@ command! -bang RG call fzf#vim#grep(
       \ 0)
 
 " ALE
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'go': ['goimports'],
