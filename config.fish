@@ -18,9 +18,16 @@ alias gl "git log --abbrev-commit --decorate=short"
 alias gd "git diff --patience --patch-with-stat"
 alias gdh "git diff --patience --patch-with-stat HEAD"
 alias gdst "git diff --patience --staged --patch-with-stat"
+alias gcb 'git checkout (git branch | sed "s/^ *//" | fzf)'
 
 function gsf
   git status -s | fzf --reverse --height=15 | awk '{ print $2 }'
+end
+
+function gcbo
+  git fetch
+
+  git checkout origin/(gh pr list 2> /dev/null | fzf --reverse | awk '$0=$NF')
 end
 
 function gbrowse
