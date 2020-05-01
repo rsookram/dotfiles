@@ -82,7 +82,6 @@ set -gx PATH $PATH ~/bin
 set -gx PATH $PATH /usr/local/go/bin
 set -gx PATH $PATH ~/go/bin
 set -gx PATH ~/.cargo/bin $PATH
-set -gx PATH ~/.nimble/bin $PATH
 set -gx PATH $PATH $ANDROID_SDK/platform-tools
 set -gx PATH $PATH $ANDROID_SDK/build-tools/28.0.3
 
