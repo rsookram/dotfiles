@@ -1,0 +1,5 @@
+# 0x32 is ~
+ctrl - 0x32  : open -a iTerm
+ctrl - 1     : open -a "$(ls -1 /Applications/ | grep Android)"
+ctrl - 2     : open -a Firefox
+ctrl - 3     : open -a Slack
