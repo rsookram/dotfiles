@@ -38,6 +38,7 @@ end
 alias l 'ls -1 -G --color'
 alias ll 'ls -alFG --color'
 
+alias adb-pull "adb shell 'find /sdcard/ -type file' | fzf | xargs -I{} adb pull {} ."
 alias adbreset 'adb kill-server && adb devices'
 alias lc 'adb shell logcat -v color'
 
