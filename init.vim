@@ -145,3 +145,6 @@ set splitright
 " Permanent undo
 set undodir=~/.vimdid
 set undofile
+
+" Synchronize with system clipboard
+set clipboard=unnamedplus
