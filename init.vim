@@ -8,6 +8,8 @@ set nocompatible
 filetype off
 call plug#begin()
 
+let g:ale_completion_enabled = 1
+
 " Load plugins
 
 " GUI enhancements
@@ -76,13 +78,15 @@ command! -bang RG call fzf#vim#grep(
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
+noremap <leader>b :ALEGoToDefinition<CR>
+
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'go': ['goimports'],
 \   'rust': ['rustfmt'],
 \}
-let g:ale_rust_cargo_use_clippy = executable('cargo-clippy')
-let g:ale_rust_cargo_clippy_options = '--warn clippy::pedantic'
+let g:ale_linters = {'rust': ['analyzer']}
+let g:ale_rust_analyzer_config = {'rust': {'clippy_preference': 'on'}}
 
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_enter = 0
