@@ -1,0 +1,8 @@
+cargo-audit
+cargo-bloat
+cargo-edit
+cargo-outdated
+cargo-update
+cargo-watch
+flamegraph
+tokei
