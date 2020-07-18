@@ -35,6 +35,10 @@ function gbrowse
     fzf --ansi --no-sort --reverse --preview 'echo {} | cut -d" " -f1 | xargs git show --color=always | diff-so-fancy' --preview-window=wrap
 end
 
+function git-edited-files
+  git status --short --porcelain | awk '$0 ~ /^ M/ { print $2 }'
+end
+
 alias l 'ls -1 -G --color'
 alias ll 'ls -alFG --color'
 
