@@ -39,6 +39,13 @@ function git-edited-files
   git status --short --porcelain | awk '$0 ~ /^ M/ { print $2 }'
 end
 
+# Like grep -o, but using comby
+function comby-only-matching
+  set pattern $argv[1]
+  set files $argv[2..-1]
+  comby -match-only -json-lines $pattern $files | jq --raw-output '.matches[] | .matched'
+end
+
 alias l 'ls -1 -G --color'
 alias ll 'ls -alFG --color'
 
