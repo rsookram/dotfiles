@@ -27,7 +27,7 @@ end
 function gcbo
   git fetch
 
-  git checkout origin/(gh pr list 2> /dev/null | fzf --reverse | awk '{ print $NF }')
+  git checkout origin/(gh pr list | fzf --reverse | awk '{ print $(NF-1) }')
 end
 
 function gbrowse
