@@ -56,7 +56,7 @@ noremap <leader>g :Rg<space><C-R><C-W><CR>
 " Disable preview window for built-in commands
 let g:fzf_preview_window = ''
 " Display results for built-in commands in floating windows
-let g:fzf_layout = {'window': {'width': 0.6, 'height': 0.7}}
+let g:fzf_layout = {'window': {'width': 0.8, 'height': 0.8}}
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
