@@ -1,0 +1,17 @@
+let mapleader = " "
+
+noremap <leader>o :action GotoFile<CR>
+noremap <leader>r :action GotoClass<CR>
+noremap <leader>e :action RecentFiles<CR>
+
+noremap <leader>f :action FindInPath<CR>
+noremap <leader>g :action FindUsages<CR>
+
+" Use IDE to join lines smartly
+set ideajoin
+
+set incsearch
+set ignorecase
+
+" Synchronize with system clipboard
+set clipboard=unnamedplus
