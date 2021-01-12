@@ -7,7 +7,6 @@ end
 
 alias g "git"
 alias gst "git status -sb"
-alias gstl "git status -sb"
 alias ga "git add"
 alias gai "git add -i"
 alias gap "git add -p * .*"
@@ -20,10 +19,6 @@ alias gdh "git diff --patience --patch-with-stat HEAD"
 alias gdst "git diff --patience --staged --patch-with-stat"
 alias gcb 'git checkout (git branch | sed "s/^ *//" | fzf)'
 
-function gsf
-  git status -s | fzf --reverse --height=15 | awk '{ print $2 }'
-end
-
 function gcbo
   git fetch
 
@@ -33,17 +28,6 @@ end
 function gbrowse
   git log --oneline --no-merges --color=always -- . |
     fzf --ansi --no-sort --reverse --preview 'echo {} | cut -d" " -f1 | xargs git show --color=always | diff-so-fancy' --preview-window=wrap
-end
-
-function git-edited-files
-  git status --short --porcelain | awk '$0 ~ /^ M/ { print $2 }'
-end
-
-# Like grep -o, but using comby
-function comby-only-matching
-  set pattern $argv[1]
-  set files $argv[2..-1]
-  comby -match-only -json-lines $pattern $files | jq --raw-output '.matches[] | .matched'
 end
 
 alias l 'ls -1 -G --color'
