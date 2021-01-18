@@ -30,8 +30,13 @@ function gbrowse
     fzf --ansi --no-sort --reverse --preview 'echo {} | cut -d" " -f1 | xargs git show --color=always | diff-so-fancy' --preview-window=wrap
 end
 
-alias l 'ls -1 -G --color'
-alias ll 'ls -alFG --color'
+if test (uname) = "Darwin"
+  alias l 'ls -1 -G'
+  alias ll 'ls -alFG'
+else
+  alias l 'ls -1 -G --color'
+  alias ll 'ls -alFG --color'
+end
 
 alias adb-pull "adb shell 'find /sdcard/ -type file' | fzf | xargs -I{} adb pull {} ."
 alias adbreset 'adb kill-server && adb devices'
@@ -76,11 +81,14 @@ set -gx JAVA_HOME ~/tools/android-studio/jre
 set ANDROID_SDK ~/Android/Sdk/
 
 set -gx PATH $PATH ~/bin
-set -gx PATH $PATH /usr/local/go/bin
 set -gx PATH $PATH ~/go/bin
 set -gx PATH ~/.cargo/bin $PATH
 set -gx PATH $PATH $ANDROID_SDK/platform-tools
-set -gx PATH $PATH $ANDROID_SDK/build-tools/28.0.3
+
+# Go installation is managed by homebrew on macos
+if test (uname) = "Linux"
+  set -gx PATH $PATH /usr/local/go/bin
+end
 
 # Python user base binary directory
 set -gx PATH $PATH ~/.local/bin
@@ -96,3 +104,7 @@ set -gx BAT_STYLE 'plain'
 
 # Disable auto-update with homebrew
 set -gx HOMEBREW_NO_AUTO_UPDATE 1
+
+# pass
+set -gx PASSWORD_STORE_ENABLE_EXTENSIONS true
+set -gx PASSWORD_STORE_EXTENSIONS_DIR /usr/local/lib/password-store/extensions
