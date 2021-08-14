@@ -84,6 +84,7 @@ set -gx PATH $PATH ~/bin
 set -gx PATH $PATH ~/go/bin
 set -gx PATH ~/.cargo/bin $PATH
 set -gx PATH $PATH $ANDROID_SDK/platform-tools
+set -gx PATH $PATH $ANDROID_SDK/build-tools/30.0.3
 
 # Go installation is managed by homebrew on macos
 if test (uname) = "Linux"
