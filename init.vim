@@ -8,12 +8,14 @@ set nocompatible
 filetype off
 call plug#begin()
 
-let g:ale_completion_enabled = 1
-
 " Load plugins
 
+" Collection of common configs for built-in LSP client
+Plug 'neovim/nvim-lspconfig'
+" Autocompletion framework for built-in LSP
+Plug 'nvim-lua/completion-nvim'
+
 " GUI enhancements
-Plug 'w0rp/ale'
 Plug 'altercation/vim-colors-solarized'
 
 " Fuzzy finder
@@ -27,10 +29,11 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 
 " Language-specific
+Plug 'fatih/vim-go'
 Plug 'udalov/kotlin-vim'
+Plug 'rust-lang/rust.vim'
 Plug 'alderz/smali-vim'
 Plug 'keith/swift.vim'
-Plug 'fatih/vim-go'
 
 call plug#end()
 
@@ -74,29 +77,53 @@ command! -bang RG call fzf#vim#grep(
       \ }, 'down:40%'),
       \ 0)
 
-" ALE
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-noremap <leader>b :ALEGoToDefinition<CR>
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
+set completeopt=menuone,noinsert,noselect
 
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'go': ['goimports'],
-\   'rust': ['rustfmt'],
-\}
-let g:ale_linters = {'rust': ['analyzer']}
-let g:ale_rust_analyzer_config = {'rust': {'clippy_preference': 'on'}}
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-let g:ale_fix_on_save = 1
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
+" use <Tab> as trigger key
+imap <Tab> <Plug>(completion_smart_tab)
+
+" Configure LSP
+lua <<EOF
+
+-- nvim_lsp object
+local nvim_lsp = require'lspconfig'
+
+-- function to attach completion when setting up lsp
+local on_attach = function(client)
+    require'completion'.on_attach(client)
+end
+
+-- Go
+nvim_lsp.gopls.setup({ on_attach=on_attach })
+
+-- Enable rust_analyzer
+nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
+
+-- Enable diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = true,
+    signs = true,
+    update_in_insert = true,
+  }
+)
+EOF
 
 " vim-go
 let g:go_highlight_types = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
+
+" rust.vim
+let g:rustfmt_autosave = 1
 
 " Theme
 set background=light
