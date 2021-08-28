@@ -1,0 +1,20 @@
+{
+    "workbench.colorTheme": "Solarized Light",
+    "files.autoSave": "afterDelay",
+    "workbench.editor.showTabs": false,
+    "editor.minimap.enabled": false,
+    "editor.formatOnSave": true,
+    "editor.scrollbar.vertical": "hidden",
+    "editor.renderIndentGuides": false,
+    "editor.overviewRulerBorder": false,
+    "editor.lineNumbers": "off",
+    "zenMode.fullScreen": false,
+    "breadcrumbs.symbolPath": "off",
+    "breadcrumbs.enabled": false,
+    "breadcrumbs.filePath": "off",
+    "editor.folding": false,
+    "window.menuBarVisibility": "toggle",
+    "workbench.activityBar.visible": false,
+    "git.autofetch": true,
+    "workbench.statusBar.visible": false
+}
