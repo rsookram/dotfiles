@@ -16,5 +16,6 @@
     "window.menuBarVisibility": "toggle",
     "workbench.activityBar.visible": false,
     "git.autofetch": true,
-    "workbench.statusBar.visible": false
+    "workbench.statusBar.visible": false,
+    "keyboard.dispatch": "keyCode"
 }
