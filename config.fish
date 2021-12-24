@@ -65,7 +65,7 @@ alias bc 'bc --quiet --mathlib'
 alias wifi-settings 'nm-connection-editor'
 
 # Use output from fd as default list for fzf. Allows fzf to respect .gitignore
-set -gx FZF_DEFAULT_COMMAND 'fd --type f'
+set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden --exclude .git'
 
 # colour man pages
 set -gx LESS_TERMCAP_mb \e'[01;31m'
