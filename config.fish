@@ -44,11 +44,14 @@ alias adbreset 'adb kill-server && adb devices'
 alias lc 'adb shell logcat -v color'
 alias apk-size 'fd -I -e apk -X ls -lh'
 
-alias vi 'nvim'
-function vif
-  set file (fzf --reverse --preview "bat --color=always {}" --preview-window=wrap)
-  if test $status -eq 0
-    nvim $file
+function v
+  if count $argv > /dev/null
+    nvim $argv
+  else
+    set file (fzf --reverse --preview "bat --color=always {}" --preview-window=wrap)
+    if test $status -eq 0
+      nvim $file
+    end
   end
 end
 
