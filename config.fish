@@ -104,7 +104,7 @@ set -gx VISUAL nvim
 set -gx EDITOR $VISUAL
 
 # bat
-set -gx BAT_THEME 'Solarized (light)'
+set -gx BAT_THEME 'Monokai Extended'
 set -gx BAT_STYLE 'plain'
 
 # Disable auto-update with homebrew
