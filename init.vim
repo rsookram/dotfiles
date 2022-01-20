@@ -16,7 +16,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 
 " GUI enhancements
-Plug 'altercation/vim-colors-solarized'
+Plug 'noahfrederick/vim-noctu'
 
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -126,11 +126,10 @@ let g:go_highlight_function_calls = 1
 let g:rustfmt_autosave = 1
 
 " Theme
-set background=light
-colorscheme solarized
+colorscheme noctu
 
 " Hide tildes at the end of the file
-highlight EndOfBuffer ctermfg=bg
+let &fcs='eob: '
 
 
 autocmd BufRead,BufNewFile *.md setlocal spell
