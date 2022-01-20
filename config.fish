@@ -5,6 +5,18 @@ function fish_prompt
   printf '%s%s%s> ' (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
 end
 
+
+set --universal fish_color_normal FFFFFF
+set --universal fish_color_selection --background=EEEEEC
+set --universal fish_color_match --background=E4E4E4
+set --universal fish_color_search_match --background=000000
+set --universal fish_color_comment CFBFAD
+set --universal fish_color_autosuggestion 929292
+set --universal fish_color_param FF8700
+set --universal fish_color_quote FCF330
+set --universal fish_color_command A0EB01
+
+
 alias g "git"
 alias gst "git status -sb"
 alias ga "git add"
