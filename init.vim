@@ -29,6 +29,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 
 " Language-specific
+Plug 'khaveesh/vim-fish-syntax'
 Plug 'fatih/vim-go'
 Plug 'udalov/kotlin-vim'
 Plug 'rust-lang/rust.vim'
