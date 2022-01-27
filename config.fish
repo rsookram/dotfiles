@@ -2,7 +2,19 @@
 set fish_greeting
 
 function fish_prompt
-  printf '%s%s%s> ' (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
+  if not set -q __fish_git_prompt_show_informative_status
+    set -g __fish_git_prompt_show_informative_status 1
+  end
+
+  if not set -q __fish_git_prompt_color_branch
+    set -g __fish_git_prompt_color_branch brmagenta
+  end
+
+  if not set -q __fish_git_prompt_color_stagedstate
+    set -g __fish_git_prompt_color_stagedstate yellow
+  end
+
+  printf '%s%s%s%s> ' (set_color $fish_color_cwd) (prompt_pwd) (set_color normal) (fish_git_prompt)
 end
 
 
