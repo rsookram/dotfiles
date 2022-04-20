@@ -39,8 +39,8 @@ alias gb "git branch -vv"
 alias gbl "git blame"
 alias gco "git commit -v"
 alias gl "git log --abbrev-commit --decorate=short"
-alias gd "git diff --patience --patch-with-stat"
-alias gdh "git diff --patience --patch-with-stat HEAD"
+alias gd "git diff --patience --find-renames --patch-with-stat"
+alias gdh "git diff --patience --find-renames --patch-with-stat HEAD"
 alias gdst "git diff --patience --staged --patch-with-stat"
 alias gcb 'git checkout (git branch | sed "s/^ *//" | fzf)'
 
@@ -80,7 +80,7 @@ function v
 end
 
 function cdr
-  set dir (ls -1d ~/src/*/ ~/third-party/*/ | fzf --height 50 --reverse --delimiter '/' --with-nth 5)
+  set dir (ls -1d ~/src/*/ | fzf --height 50 --reverse --delimiter '/' --with-nth 5)
 
   if test $status -eq 0
     cd $dir
@@ -104,15 +104,28 @@ set -gx LESS_TERMCAP_ue \e'[0m'
 set -gx LESS_TERMCAP_us \e'[32m'
 
 
-set -gx JAVA_HOME ~/tools/android-studio/jre
 
-set ANDROID_SDK ~/Android/Sdk/
+if test (uname) = "Darwin"
+  set -gx JAVA_HOME '/Applications/Android Studio.app/Contents/jre/Contents/Home/'
+  set ANDROID_SDK ~/Library/Android/sdk
+else
+  set -gx JAVA_HOME ~/tools/android-studio/jre
+  set ANDROID_SDK ~/Android/Sdk
+end
+
+set -gx ANDROID_NDK_HOME $ANDROID_SDK/ndk/21.0.6113669/
 
 set -gx PATH $PATH ~/bin
 set -gx PATH $PATH ~/go/bin
 set -gx PATH ~/.cargo/bin $PATH
 set -gx PATH $PATH $ANDROID_SDK/platform-tools
 set -gx PATH $PATH $ANDROID_SDK/build-tools/30.0.3
+set -gx PATH $JAVA_HOME/bin $PATH
+set -gx PATH $PATH ~/tools/depot_tools
+
+if test (uname) = "Darwin"
+  set -gx PATH $PATH /opt/homebrew/bin
+end
 
 # Go installation is managed by homebrew on macos
 if test (uname) = "Linux"
