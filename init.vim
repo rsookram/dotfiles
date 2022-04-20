@@ -33,7 +33,6 @@ Plug 'khaveesh/vim-fish-syntax'
 Plug 'fatih/vim-go'
 Plug 'udalov/kotlin-vim'
 Plug 'rust-lang/rust.vim'
-Plug 'alderz/smali-vim'
 Plug 'keith/swift.vim'
 
 call plug#end()
@@ -60,7 +59,7 @@ noremap <leader>g :Rg<space><C-R><C-W><CR>
 " Disable preview window for built-in commands
 let g:fzf_preview_window = ''
 " Display results for built-in commands in floating windows
-let g:fzf_layout = {'window': {'width': 0.8, 'height': 0.8}}
+let g:fzf_layout = {'window': {'width': 0.9, 'height': 0.9}}
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -98,7 +97,11 @@ lua <<EOF
 local nvim_lsp = require'lspconfig'
 
 -- function to attach completion when setting up lsp
-local on_attach = function(client)
+local on_attach = function(client, bufnr)
+    local opts = { noremap=true, silent=true }
+
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+
     require'completion'.on_attach(client)
 end
 
@@ -106,7 +109,23 @@ end
 nvim_lsp.gopls.setup({ on_attach=on_attach })
 
 -- Enable rust_analyzer
-nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
+nvim_lsp.rust_analyzer.setup({
+  on_attach=on_attach,
+  settings = {
+    ["rust-analyzer"] = {
+      assist = {
+        importGranularity = "module",
+        importPrefix = "by_self",
+      },
+      cargo = {
+        loadOutDirsFromCheck = true
+      },
+      procMacro = {
+        enable = true
+      },
+    }
+  }
+})
 
 -- Enable diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
