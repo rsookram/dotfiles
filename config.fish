@@ -55,13 +55,9 @@ function gbrowse
     fzf --ansi --no-sort --reverse --preview 'echo {} | cut -d" " -f1 | xargs git show --color=always | diff-so-fancy' --preview-window=wrap
 end
 
-if test (uname) = "Darwin"
-  alias l 'ls -1 -G'
-  alias ll 'ls -alFG'
-else
-  alias l 'ls -1 -G --color'
-  alias ll 'ls -alFG --color'
-end
+alias l 'exa --oneline --group-directories-first'
+alias ll 'exa --long --all --classify --group-directories-first'
+alias tree 'exa --tree'
 
 alias c 'cargo'
 
