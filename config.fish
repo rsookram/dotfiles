@@ -61,10 +61,8 @@ alias tree 'exa --tree'
 
 alias c 'cargo'
 
-alias adb-pull "adb shell 'find /sdcard/ -type file' | fzf | xargs -I{} adb pull {} ."
 alias adbreset 'adb kill-server && adb devices'
 alias lc 'adb shell logcat -v color'
-alias apk-size 'fd -I -e apk -X ls -lh'
 
 function v
   if count $argv > /dev/null
@@ -145,6 +143,3 @@ set -gx BAT_STYLE 'plain'
 # Disable auto-update with homebrew
 set -gx HOMEBREW_NO_AUTO_UPDATE 1
 
-# pass
-set -gx PASSWORD_STORE_ENABLE_EXTENSIONS true
-set -gx PASSWORD_STORE_EXTENSIONS_DIR /usr/local/lib/password-store/extensions
