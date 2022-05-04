@@ -52,7 +52,7 @@ end
 
 function gbrowse
   git log --oneline --no-merges --color=always -- . |
-    fzf --ansi --no-sort --reverse --preview 'echo {} | cut -d" " -f1 | xargs git show --color=always | diff-so-fancy' --preview-window=wrap
+    fzf --ansi --no-sort --reverse --preview 'echo {} | cut -d" " -f1 | xargs git show --color=always | delta' --preview-window=wrap
 end
 
 alias l 'exa --oneline --group-directories-first'
