@@ -68,7 +68,7 @@ function v
   if count $argv > /dev/null
     nvim $argv
   else
-    set file (fzf --reverse --preview "bat --color=always {}" --preview-window=wrap)
+    set file (DISABLE_FNM=true fzf --reverse --preview "bat --color=always {}" --preview-window=wrap)
     if test $status -eq 0
       nvim $file
     end
@@ -145,5 +145,7 @@ set -gx HOMEBREW_NO_AUTO_UPDATE 1
 
 # fnm
 if which fnm > /dev/null
-  fnm env --use-on-cd | source
+  if not set -q DISABLE_FNM
+    fnm env --use-on-cd | source 1>&2
+  end
 end
