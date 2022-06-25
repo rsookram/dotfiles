@@ -1,5 +1,5 @@
 # 0x32 is ~
 ctrl - 0x32  : open -a iTerm
-ctrl - 1     : open -b 'com.google.android.studio'
+ctrl - 1     : open -a vscodium
 ctrl - 2     : open -a Chromium
 ctrl - 3     : open -a 'Signal Alpha'
