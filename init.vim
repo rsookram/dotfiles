@@ -154,6 +154,9 @@ let &fcs='eob: '
 
 autocmd BufRead,BufNewFile *.md setlocal spell
 
+" Start commits in insert mode at the beginning of the file
+autocmd FileType gitcommit call feedkeys('ggi')
+
 " Treat long lines as break lines
 map j gj
 map k gk
