@@ -1,11 +1,9 @@
 {
-    "workbench.colorTheme": "Solarized Light",
+    "workbench.colorTheme": "Monokai",
     "files.autoSave": "afterDelay",
     "workbench.editor.showTabs": false,
     "editor.minimap.enabled": false,
     "editor.formatOnSave": true,
-    "editor.scrollbar.vertical": "hidden",
-    "editor.renderIndentGuides": false,
     "editor.overviewRulerBorder": false,
     "editor.lineNumbers": "off",
     "zenMode.fullScreen": false,
@@ -17,5 +15,12 @@
     "workbench.activityBar.visible": false,
     "git.autofetch": true,
     "workbench.statusBar.visible": false,
-    "keyboard.dispatch": "keyCode"
+    "keyboard.dispatch": "keyCode",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "go.toolsManagement.autoUpdate": true,
+    "editor.smoothScrolling": true,
+    "rust-analyzer.inlayHints.enable": false,
+    "workbench.startupEditor": "none",
+    "editor.guides.indentation": false,
+    "window.zoomLevel": 2
 }
