@@ -47,7 +47,7 @@ alias gcb 'git checkout (git branch | sed "s/^ *//" | fzf)'
 function gcbo
   git fetch
 
-  git checkout origin/(gh pr list | fzf --reverse | awk '{ print $(NF-1) }')
+  git checkout origin/(gh pr list | fzf --reverse | awk '{ print $(NF-5) }')
 end
 
 function gbrowse
