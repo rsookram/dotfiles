@@ -18,9 +18,11 @@ Plug 'nvim-lua/completion-nvim'
 " GUI enhancements
 Plug 'noahfrederick/vim-noctu'
 
-" Fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'smartpde/telescope-recent-files'
 
 " Matching brackets/parens/quotes
 Plug 'jiangmiao/auto-pairs'
@@ -39,44 +41,16 @@ call plug#end()
 
 " Plugin settings
 
-" fzf
-" Override these commands to reverse the layout
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse']}, <bang>0)
+" telescope
+lua << EOF
+require('telescope').load_extension('fzf')
+require("telescope").load_extension("recent_files")
+EOF
 
-command! -bang -nargs=? -complete=dir Buffers
-    \ call fzf#vim#buffers(<q-args>, {'options': ['--layout=reverse']}, <bang>0)
-
-" Open hotkeys
-nmap <leader>o :Files<CR>
-nmap <leader>e :Buffers<CR>
-
-" Incremental Rg search
-noremap <leader>f :RG<CR>
-" Something like 'find usages' (of word under cursor)
-noremap <leader>g :Rg<space><C-R><C-W><CR>
-
-" Disable preview window for built-in commands
-let g:fzf_preview_window = ''
-" Display results for built-in commands in floating windows
-let g:fzf_layout = {'window': {'width': 0.9, 'height': 0.9}}
-
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%'),
-\ <bang>0)
-
-command! -bang RG call fzf#vim#grep(
-      \ 'fzf-vim-rg ""',
-      \ 1,
-      \ fzf#vim#with_preview({
-      \   'options': ['--phony', '--bind', 'change:reload:fzf-vim-rg {q}'],
-      \   'window': {'width': 0.8, 'height': 0.6}
-      \ }, 'down:40%'),
-      \ 0)
-
+nnoremap <leader>o <cmd>Telescope find_files<cr>
+nnoremap <leader>e <cmd>Telescope recent_files pick<cr>
+nnoremap <leader>f <cmd>Telescope live_grep<cr>
+nnoremap <leader>g <cmd>Telescope grep_string<cr>
 
 " menuone: popup even when there's only one match
 " noinsert: Do not insert text until a selection is made

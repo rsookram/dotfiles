@@ -12,6 +12,7 @@ git-delta
 gnupg
 go
 jq
+make
 mpv
 neovim
 pass
