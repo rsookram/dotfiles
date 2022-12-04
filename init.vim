@@ -22,6 +22,7 @@ Plug 'noahfrederick/vim-noctu'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'smartpde/telescope-recent-files'
 
 " Matching brackets/parens/quotes
@@ -43,14 +44,37 @@ call plug#end()
 
 " telescope
 lua << EOF
+local actions = require("telescope.actions")
+require("telescope").setup{
+  defaults = {
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close,
+        ["<C-u>"] = false
+      },
+    },
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--trim" -- this differs from the default
+    }
+  }
+}
 require('telescope').load_extension('fzf')
-require("telescope").load_extension("recent_files")
+require('telescope').load_extension('ui-select')
+require('telescope').load_extension('recent_files')
 EOF
 
-nnoremap <leader>o <cmd>Telescope find_files<cr>
+nnoremap <leader>r <cmd>Telescope find_files<cr>
 nnoremap <leader>e <cmd>Telescope recent_files pick<cr>
 nnoremap <leader>f <cmd>Telescope live_grep<cr>
 nnoremap <leader>g <cmd>Telescope grep_string<cr>
+nnoremap <leader>a <cmd>Telescope command_history<cr>
 
 " menuone: popup even when there's only one match
 " noinsert: Do not insert text until a selection is made
@@ -77,6 +101,11 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
 
     require'completion'.on_attach(client)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>6', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>G', '<Cmd>Telescope lsp_references<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>o', '<Cmd>Telescope lsp_document_symbols<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>t', '<Cmd>Telescope lsp_workspace_symbols<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>.', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 end
 
 -- Go
