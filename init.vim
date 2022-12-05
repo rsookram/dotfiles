@@ -12,8 +12,12 @@ call plug#begin()
 
 " Collection of common configs for built-in LSP client
 Plug 'neovim/nvim-lspconfig'
-" Autocompletion framework for built-in LSP
-Plug 'nvim-lua/completion-nvim'
+
+" Autocompletion
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 
 " GUI enhancements
 Plug 'noahfrederick/vim-noctu'
@@ -81,15 +85,30 @@ nnoremap <leader>a <cmd>Telescope command_history<cr>
 " noselect: Do not select, force user to select one from the menu
 set completeopt=menuone,noinsert,noselect
 
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" use <Tab> as trigger key
-imap <Tab> <Plug>(completion_smart_tab)
-
 " Configure LSP
 lua <<EOF
+  -- Set up nvim-cmp.
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
+    window = {
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<TAB>'] = cmp.mapping.confirm({ select = true }),
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' },
+    }),
+    experimental = {
+      ghost_text = true,
+    },
+  })
 
 -- nvim_lsp object
 local nvim_lsp = require'lspconfig'
@@ -100,7 +119,6 @@ local on_attach = function(client, bufnr)
 
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
 
-    require'completion'.on_attach(client)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>6', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>G', '<Cmd>Telescope lsp_references<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>o', '<Cmd>Telescope lsp_document_symbols<CR>', opts)
@@ -108,12 +126,17 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>.', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 end
 
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 -- Go
-nvim_lsp.gopls.setup({ on_attach=on_attach })
+nvim_lsp.gopls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
 
 -- Enable rust_analyzer
 nvim_lsp.rust_analyzer.setup({
-  on_attach=on_attach,
+  on_attach = on_attach,
   settings = {
     ["rust-analyzer"] = {
       assist = {
@@ -127,7 +150,8 @@ nvim_lsp.rust_analyzer.setup({
         enable = true
       },
     }
-  }
+  },
+  capabilities = capabilities,
 })
 
 -- Enable diagnostics
