@@ -67,6 +67,12 @@ require("telescope").setup{
       "--smart-case",
       "--trim" -- this differs from the default
     }
+  },
+  extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_cursor {
+      }
+    }
   }
 }
 require('telescope').load_extension('fzf')
