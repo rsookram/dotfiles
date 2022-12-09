@@ -72,6 +72,9 @@ require("telescope").setup{
     ["ui-select"] = {
       require("telescope.themes").get_cursor {
       }
+    },
+    ["recent_files"] = {
+      only_cwd = true
     }
   }
 }
@@ -81,7 +84,7 @@ require('telescope').load_extension('recent_files')
 EOF
 
 nnoremap <leader>r <cmd>Telescope find_files<cr>
-nnoremap <leader>e <cmd>Telescope recent_files pick<cr>
+nnoremap <leader>e <cmd>Telescope recent_files theme=dropdown previewer=false pick<cr>
 nnoremap <leader>f <cmd>Telescope live_grep layout_strategy=vertical<cr>
 nnoremap <leader>g <cmd>Telescope grep_string layout_strategy=vertical<cr>
 nnoremap <leader>a <cmd>Telescope command_history<cr>
