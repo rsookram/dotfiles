@@ -133,6 +133,8 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>o', '<Cmd>Telescope lsp_document_symbols<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>t', '<Cmd>Telescope lsp_workspace_symbols<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>.', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>l', '<Cmd>lua vim.diagnostic.open_float()<CR>', opts)
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
