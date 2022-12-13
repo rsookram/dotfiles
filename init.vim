@@ -192,6 +192,9 @@ let &fcs='eob: '
 
 autocmd BufRead,BufNewFile *.md setlocal spell
 
+" Prevent x from copying to clipboard
+nnoremap x "_x
+
 " Treat long lines as break lines
 map j gj
 map k gk
