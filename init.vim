@@ -20,7 +20,8 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
 " GUI enhancements
-Plug 'noahfrederick/vim-noctu'
+Plug 'rsookram/monokaikai.vim'
+Plug 'folke/which-key.nvim'
 
 " telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -83,12 +84,36 @@ require('telescope').load_extension('ui-select')
 require('telescope').load_extension('recent_files')
 EOF
 
-nnoremap <leader>r <cmd>Telescope find_files<cr>
-nnoremap <leader>e <cmd>Telescope recent_files theme=dropdown previewer=false pick<cr>
-nnoremap <leader>f <cmd>Telescope live_grep layout_strategy=vertical<cr>
-nnoremap <leader>g <cmd>Telescope grep_string layout_strategy=vertical<cr>
-nnoremap <leader>a <cmd>Telescope command_history<cr>
 
+" Key bindings
+lua << EOF
+require("which-key").setup{
+}
+EOF
+
+" Reduce timeout so that which-key panel appears sooner
+set timeoutlen=500
+
+nnoremap <leader>e <CMD>Telescope recent_files theme=dropdown previewer=false pick<CR>
+nnoremap <leader>f <CMD>Telescope live_grep layout_strategy=vertical<CR>
+nnoremap <leader>g <CMD>Telescope grep_string layout_strategy=vertical<CR>
+nnoremap <leader>r <CMD>Telescope find_files<CR>
+
+nnoremap <leader>ch <CMD>Telescope command_history<CR>
+
+nnoremap <leader>d <CMD>lua vim.diagnostic.open_float()<CR>
+
+" LSP key bindings
+nnoremap <leader>la <CMD>lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>ld <CMD>lua vim.lsp.buf.definition()<CR>
+nnoremap <leader>ln <CMD>lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>lr <CMD>Telescope lsp_references<CR>
+nnoremap <leader>ls <CMD>Telescope lsp_document_symbols<CR>
+nnoremap <leader>lw <CMD>Telescope lsp_workspace_symbols<CR>
+
+
+" Completion
+"
 " menuone: popup even when there's only one match
 " noinsert: Do not insert text until a selection is made
 " noselect: Do not select, force user to select one from the menu
@@ -122,32 +147,15 @@ lua <<EOF
 -- nvim_lsp object
 local nvim_lsp = require'lspconfig'
 
--- function to attach completion when setting up lsp
-local on_attach = function(client, bufnr)
-    local opts = { noremap=true, silent=true }
-
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>6', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>G', '<Cmd>Telescope lsp_references<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>o', '<Cmd>Telescope lsp_document_symbols<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>t', '<Cmd>Telescope lsp_workspace_symbols<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>.', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>l', '<Cmd>lua vim.diagnostic.open_float()<CR>', opts)
-end
-
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Go
 nvim_lsp.gopls.setup({
-  on_attach = on_attach,
   capabilities = capabilities,
 })
 
 -- Enable rust_analyzer
 nvim_lsp.rust_analyzer.setup({
-  on_attach = on_attach,
   settings = {
     ["rust-analyzer"] = {
       assist = {
@@ -184,7 +192,8 @@ let g:go_highlight_function_calls = 1
 let g:rustfmt_autosave = 1
 
 " Theme
-colorscheme noctu
+set termguicolors
+colorscheme monokaikai
 
 " Hide tildes at the end of the file
 let &fcs='eob: '
