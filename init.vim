@@ -16,12 +16,14 @@ Plug 'neovim/nvim-lspconfig'
 " Autocompletion
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
 " GUI enhancements
 Plug 'rsookram/monokaikai.vim'
 Plug 'folke/which-key.nvim'
+Plug 'folke/zen-mode.nvim'
 
 " telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -32,6 +34,9 @@ Plug 'smartpde/telescope-recent-files'
 
 " Matching brackets/parens/quotes
 Plug 'jiangmiao/auto-pairs'
+
+" Commenting
+Plug 'tpope/vim-commentary'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -47,8 +52,8 @@ call plug#end()
 
 " Plugin settings
 
-" telescope
 lua << EOF
+-- telescope
 local actions = require("telescope.actions")
 require("telescope").setup{
   defaults = {
@@ -82,34 +87,19 @@ require("telescope").setup{
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('ui-select')
 require('telescope').load_extension('recent_files')
-EOF
 
+require("zen-mode").setup {
+  window = {
+    width = 100,
+  },
+}
 
-" Key bindings
-lua << EOF
 require("which-key").setup{
 }
 EOF
 
 " Reduce timeout so that which-key panel appears sooner
 set timeoutlen=500
-
-nnoremap <leader>e <CMD>Telescope recent_files theme=dropdown previewer=false pick<CR>
-nnoremap <leader>f <CMD>Telescope live_grep layout_strategy=vertical<CR>
-nnoremap <leader>g <CMD>Telescope grep_string layout_strategy=vertical<CR>
-nnoremap <leader>r <CMD>Telescope find_files<CR>
-
-nnoremap <leader>ch <CMD>Telescope command_history<CR>
-
-nnoremap <leader>d <CMD>lua vim.diagnostic.open_float()<CR>
-
-" LSP key bindings
-nnoremap <leader>la <CMD>lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>ld <CMD>lua vim.lsp.buf.definition()<CR>
-nnoremap <leader>ln <CMD>lua vim.lsp.buf.rename()<CR>
-nnoremap <leader>lr <CMD>Telescope lsp_references<CR>
-nnoremap <leader>ls <CMD>Telescope lsp_document_symbols<CR>
-nnoremap <leader>lw <CMD>Telescope lsp_workspace_symbols<CR>
 
 
 " Completion
@@ -137,6 +127,7 @@ lua <<EOF
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
+      { name = 'buffer' },
       { name = 'vsnip' },
     }),
     experimental = {
@@ -201,12 +192,50 @@ let &fcs='eob: '
 
 autocmd BufRead,BufNewFile *.md setlocal spell
 
-" Prevent x from copying to clipboard
-nnoremap x "_x
+" Briefly highlight yanked region
+augroup highlight_yank
+  autocmd!
+  au TextYankPost * silent! lua vim.highlight.on_yank { higroup="IncSearch", timeout=400 }
+augroup end
+
+
+" Key bindings
+
+nnoremap <leader>ch <CMD>Telescope command_history<CR>
+
+nnoremap <leader>d <CMD>lua vim.diagnostic.open_float()<CR>
+
+nnoremap <leader>e <CMD>Telescope recent_files theme=dropdown previewer=false pick<CR>
+nnoremap <leader>f <CMD>Telescope live_grep layout_strategy=vertical<CR>
+nnoremap <leader>g <CMD>Telescope grep_string layout_strategy=vertical<CR>
 
 " Treat long lines as break lines
 map j gj
 map k gk
+
+" LSP key bindings
+nnoremap <leader>la <CMD>lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>ld <CMD>lua vim.lsp.buf.definition()<CR>
+nnoremap <leader>lh <CMD>lua vim.lsp.buf.hover()<CR>
+nnoremap <leader>ln <CMD>lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>lr <CMD>Telescope lsp_references<CR>
+nnoremap <leader>ls <CMD>Telescope lsp_document_symbols<CR>
+nnoremap <leader>lw <CMD>Telescope lsp_workspace_symbols<CR>
+
+nnoremap <leader>r <CMD>Telescope find_files<CR>
+
+" Prevent x from copying to clipboard
+nnoremap x "_x
+
+" Yank relative file path of current buffer
+nnoremap <leader>yf <CMD>let @+ = expand("%")<CR>
+
+nnoremap <leader>z <CMD>ZenMode<CR>
+
+" Move between methods using arrow keys
+nnoremap <Up> [m
+nnoremap <Down> ]m
+
 
 set wildmenu
 
