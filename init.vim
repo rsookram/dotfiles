@@ -74,6 +74,12 @@ require("telescope").setup{
       "--trim" -- this differs from the default
     }
   },
+  pickers = {
+    find_files = {
+      -- Hidden files aren't shown by default
+      find_command = { "fd", "--hidden", "--exclude", ".git", "--strip-cwd-prefix", "--glob", "" },
+    },
+  },
   extensions = {
     ["ui-select"] = {
       require("telescope.themes").get_cursor {
