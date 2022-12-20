@@ -29,3 +29,6 @@ colors:
     magenta: '#e54c01'
     cyan:    '#34e2e2'
     white:   '#eeeeec'
+
+key_bindings:
+  - { key: W, mods: Command, action: ReceiveChar }
