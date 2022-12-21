@@ -77,7 +77,7 @@ require("telescope").setup{
   pickers = {
     find_files = {
       -- Hidden files aren't shown by default
-      find_command = { "fd", "--hidden", "--exclude", ".git", "--strip-cwd-prefix", "--glob", "" },
+      find_command = { "fd", "--hidden", "--type", "f", "--exclude", ".git", "--strip-cwd-prefix", "--glob", "" },
     },
   },
   extensions = {
@@ -176,6 +176,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     virtual_text = true,
     signs = true,
     update_in_insert = true,
+    underline = false,
   }
 )
 EOF
@@ -210,6 +211,8 @@ augroup end
 nnoremap <leader>ch <CMD>Telescope command_history<CR>
 
 nnoremap <leader>d <CMD>lua vim.diagnostic.open_float()<CR>
+nnoremap [d <CMD>lua vim.diagnostic.goto_prev()<CR>
+nnoremap ]d <CMD>lua vim.diagnostic.goto_next()<CR>
 
 nnoremap <leader>e <CMD>Telescope recent_files theme=dropdown previewer=false pick<CR>
 nnoremap <leader>f <CMD>Telescope live_grep layout_strategy=vertical<CR>

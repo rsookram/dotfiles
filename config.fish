@@ -31,6 +31,7 @@ set --universal fish_color_command A0EB01
 
 alias g "git"
 alias gst "git status -sb"
+alias gsh "git show"
 alias ga "git add"
 alias gai "git add -i"
 alias gap "git add -p * .*"
@@ -43,6 +44,7 @@ alias gd "git diff --patience --find-renames --patch-with-stat"
 alias gdh "git diff --patience --find-renames --patch-with-stat HEAD"
 alias gdst "git diff --patience --staged --patch-with-stat"
 alias gcb 'git checkout (git branch | sed "s/^ *//" | fzf)'
+alias ghpr 'gh pr create --web'
 
 function gcbo
   git fetch
