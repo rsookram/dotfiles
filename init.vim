@@ -98,6 +98,17 @@ require("zen-mode").setup {
   window = {
     width = 100,
   },
+  -- https://github.com/folke/zen-mode.nvim/issues/35#issuecomment-955243552
+  on_open = function(_)
+    vim.cmd 'cabbrev <buffer> q let b:quitting = 1 <bar> q'
+    vim.cmd 'cabbrev <buffer> wq let b:quitting = 1 <bar> wq'
+  end,
+  on_close = function()
+    if vim.b.quitting == 1 then
+      vim.b.quitting = 0
+      vim.cmd 'q'
+    end
+  end,
 }
 
 require("which-key").setup{
@@ -193,11 +204,18 @@ let g:rustfmt_autosave = 1
 set termguicolors
 colorscheme monokaikai
 
+" Make the dimmed area around the buffer in zen mode be the same as the
+" terminal background
+hi ZenBg guibg=#333333
+
 " Hide tildes at the end of the file
 let &fcs='eob: '
 
 
 autocmd BufRead,BufNewFile *.md setlocal spell
+
+" Start in ZenMode
+autocmd VimEnter * :ZenMode
 
 " Briefly highlight yanked region
 augroup highlight_yank

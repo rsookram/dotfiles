@@ -43,6 +43,7 @@ alias gl "git log --abbrev-commit --decorate=short"
 alias gd "git diff --patience --find-renames --patch-with-stat"
 alias gdh "git diff --patience --find-renames --patch-with-stat HEAD"
 alias gdst "git diff --patience --staged --patch-with-stat"
+alias gch 'git checkout'
 alias gcb 'git checkout (git branch | sed "s/^ *//" | fzf)'
 alias ghpr 'gh pr create --web'
 
@@ -87,8 +88,7 @@ end
 
 alias bc 'bc --quiet --mathlib'
 
-alias wifi-settings 'nm-connection-editor'
-
+set -gx FZF_CTRL_R_OPTS '--reverse'
 # Use output from fd as default list for fzf. Allows fzf to respect .gitignore
 set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden --exclude .git --strip-cwd-prefix'
 
