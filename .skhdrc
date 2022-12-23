@@ -1,4 +1,4 @@
 # 0x32 is ~
-ctrl - 0x32  : open -a iTerm
+ctrl - 0x32  : open -a kitty
 ctrl - 1     : open -a Chromium
 ctrl - 2     : open -a 'Signal Alpha'

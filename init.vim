@@ -32,9 +32,6 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'smartpde/telescope-recent-files'
 
-" Matching brackets/parens/quotes
-Plug 'jiangmiao/auto-pairs'
-
 " Commenting
 Plug 'tpope/vim-commentary'
 
