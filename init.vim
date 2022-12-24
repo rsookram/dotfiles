@@ -39,7 +39,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 
 " Language-specific
-Plug 'khaveesh/vim-fish-syntax'
 Plug 'fatih/vim-go'
 Plug 'udalov/kotlin-vim'
 Plug 'rust-lang/rust.vim'
@@ -123,6 +122,9 @@ set timeoutlen=500
 " noselect: Do not select, force user to select one from the menu
 set completeopt=menuone,noinsert,noselect
 
+" Limit height (default is available screen height)
+set pumheight=12
+
 " Configure LSP
 lua <<EOF
   -- Set up nvim-cmp.
@@ -152,15 +154,24 @@ lua <<EOF
 -- nvim_lsp object
 local nvim_lsp = require'lspconfig'
 
+local on_attach = function(client, bufnr)
+  local opts = { noremap = true, silent = true }
+
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<CMD>lua vim.lsp.buf.definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<CMD>lua vim.lsp.buf.hover()<CR>', opts)
+end
+
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Go
 nvim_lsp.gopls.setup({
+  on_attach = on_attach,
   capabilities = capabilities,
 })
 
 -- Enable rust_analyzer
 nvim_lsp.rust_analyzer.setup({
+  on_attach = on_attach,
   settings = {
     ["rust-analyzer"] = {
       assist = {
@@ -193,6 +204,8 @@ EOF
 let g:go_highlight_types = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
+" This is done through LSP instead
+let g:go_doc_keywordprg_enabled = 0
 
 " rust.vim
 let g:rustfmt_autosave = 1
@@ -239,8 +252,6 @@ map k gk
 
 " LSP key bindings
 nnoremap <leader>la <CMD>lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>ld <CMD>lua vim.lsp.buf.definition()<CR>
-nnoremap <leader>lh <CMD>lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>ln <CMD>lua vim.lsp.buf.rename()<CR>
 nnoremap <leader>lr <CMD>Telescope lsp_references<CR>
 nnoremap <leader>ls <CMD>Telescope lsp_document_symbols<CR>
