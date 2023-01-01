@@ -42,7 +42,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'fatih/vim-go'
 Plug 'udalov/kotlin-vim'
 Plug 'rust-lang/rust.vim'
-Plug 'keith/swift.vim'
 
 call plug#end()
 
@@ -94,17 +93,6 @@ require("zen-mode").setup {
   window = {
     width = 100,
   },
-  -- https://github.com/folke/zen-mode.nvim/issues/35#issuecomment-955243552
-  on_open = function(_)
-    vim.cmd 'cabbrev <buffer> q let b:quitting = 1 <bar> q'
-    vim.cmd 'cabbrev <buffer> wq let b:quitting = 1 <bar> wq'
-  end,
-  on_close = function()
-    if vim.b.quitting == 1 then
-      vim.b.quitting = 0
-      vim.cmd 'q'
-    end
-  end,
 }
 
 require("which-key").setup{
@@ -174,15 +162,16 @@ nvim_lsp.rust_analyzer.setup({
   on_attach = on_attach,
   settings = {
     ["rust-analyzer"] = {
-      assist = {
-        importGranularity = "module",
-        importPrefix = "by_self",
-      },
       cargo = {
-        loadOutDirsFromCheck = true
+        features = 'all',
       },
-      procMacro = {
-        enable = true
+      checkOnSave = {
+        command = 'clippy',
+      },
+      completion = {
+        postfix = {
+          enable = false,
+        },
       },
     }
   },
@@ -195,7 +184,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     virtual_text = true,
     signs = true,
     update_in_insert = true,
-    underline = false,
   }
 )
 EOF
@@ -223,9 +211,6 @@ let &fcs='eob: '
 
 
 autocmd BufRead,BufNewFile *.md setlocal spell
-
-" Start in ZenMode
-autocmd VimEnter * :ZenMode
 
 " Briefly highlight yanked region
 augroup highlight_yank

@@ -67,18 +67,9 @@ alias c 'cargo'
 alias adbreset 'adb kill-server && adb devices'
 alias lc 'adb shell logcat -v color'
 
-function v
-  if count $argv > /dev/null
-    nvim $argv
-  else
-    set file (DISABLE_FNM=true fzf --reverse --preview "bat --color=always {}" --preview-window=wrap)
-    if test $status -eq 0
-      nvim $file
-    end
-  end
-end
+alias v 'nvim'
 
-function cdr
+function j
   set dir (ls -1d ~/src/*/ | fzf --height 50 --reverse --delimiter '/' --with-nth 5)
 
   if test $status -eq 0
@@ -154,7 +145,5 @@ set -gx HOMEBREW_NO_AUTO_UPDATE 1
 
 # fnm
 if which fnm > /dev/null
-  if not set -q DISABLE_FNM
-    fnm env --use-on-cd | source 1>&2
-  end
+  fnm env --use-on-cd | source 1>&2
 end
