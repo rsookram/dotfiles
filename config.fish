@@ -67,7 +67,13 @@ alias c 'cargo'
 alias adbreset 'adb kill-server && adb devices'
 alias lc 'adb shell logcat -v color'
 
-alias v 'nvim'
+function v
+  if count $argv > /dev/null
+    nvim $argv
+  else
+    nvim '+Telescope recent_files theme=dropdown previewer=false pick'
+  end
+end
 
 function j
   set dir (ls -1d ~/src/*/ | fzf --height 50 --reverse --delimiter '/' --with-nth 5)

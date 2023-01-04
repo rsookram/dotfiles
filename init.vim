@@ -221,8 +221,6 @@ augroup end
 
 " Key bindings
 
-nnoremap <leader>ch <CMD>Telescope command_history<CR>
-
 nnoremap <leader>d <CMD>lua vim.diagnostic.open_float()<CR>
 nnoremap [d <CMD>lua vim.diagnostic.goto_prev()<CR>
 nnoremap ]d <CMD>lua vim.diagnostic.goto_next()<CR>
