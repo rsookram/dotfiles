@@ -254,9 +254,11 @@ nnoremap <leader>yf <CMD>let @+ = expand("%")<CR>
 
 nnoremap <leader>z <CMD>ZenMode<CR>
 
-" Move between methods using arrow keys
-nnoremap <Up> [m
-nnoremap <Down> ]m
+" Move line(s) up and down (and retain position within line)
+nnoremap <Up> :move-2<CR>==
+vnoremap <Up> :move '<-2<cr>gv=gv
+nnoremap <Down> :move+<CR>==
+vnoremap <Down> :move '>+1<cr>gv=gv
 
 
 set wildmenu
