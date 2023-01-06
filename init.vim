@@ -221,6 +221,10 @@ augroup end
 
 " Key bindings
 
+" Go to the first non-whitespace character of the line more easily
+nnoremap 0 ^
+vnoremap 0 ^
+
 nnoremap <leader>d <CMD>lua vim.diagnostic.open_float()<CR>
 nnoremap [d <CMD>lua vim.diagnostic.goto_prev()<CR>
 nnoremap ]d <CMD>lua vim.diagnostic.goto_next()<CR>
