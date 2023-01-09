@@ -30,7 +30,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-ui-select.nvim'
-Plug 'smartpde/telescope-recent-files'
+Plug 'rsookram/telescope-recent-files'
 
 " Commenting
 Plug 'tpope/vim-commentary'
@@ -81,7 +81,10 @@ require("telescope").setup{
       }
     },
     ["recent_files"] = {
-      only_cwd = true
+      tiebreak = function(_current_entry, _existing_entry, _prompt)
+        -- Prevent the order from changing when filtering
+        return false
+      end,
     }
   }
 }
@@ -113,32 +116,32 @@ set completeopt=menuone,noinsert,noselect
 " Limit height (default is available screen height)
 set pumheight=12
 
-" Configure LSP
 lua <<EOF
-  -- Set up nvim-cmp.
-  local cmp = require'cmp'
+-- Set up nvim-cmp.
+local cmp = require'cmp'
 
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-    window = {
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['<TAB>'] = cmp.mapping.confirm({ select = true }),
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'buffer' },
-      { name = 'vsnip' },
-    }),
-    experimental = {
-      ghost_text = true,
-    },
-  })
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  window = {
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<TAB>'] = cmp.mapping.confirm({ select = true }),
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+    { name = 'vsnip' },
+  }),
+  experimental = {
+    ghost_text = true,
+  },
+})
 
+-- Configure LSP
 -- nvim_lsp object
 local nvim_lsp = require'lspconfig'
 
