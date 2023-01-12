@@ -55,7 +55,7 @@ require("telescope").setup{
     mappings = {
       i = {
         ["<esc>"] = actions.close,
-        ["<C-u>"] = false
+        ["<C-u>"] = false -- so that I can delete to the beginning
       },
     },
     vimgrep_arguments = {
@@ -67,12 +67,18 @@ require("telescope").setup{
       "--column",
       "--smart-case",
       "--trim" -- this differs from the default
-    }
+    },
   },
   pickers = {
     find_files = {
       -- Hidden files aren't shown by default
       find_command = { "fd", "--hidden", "--type", "f", "--exclude", ".git", "--strip-cwd-prefix", "--glob", "" },
+    },
+    live_grep = {
+      path_display = { "shorten" },
+    },
+    grep_string = {
+      path_display = { "shorten" },
     },
   },
   extensions = {
@@ -247,7 +253,7 @@ nnoremap <leader>lr <CMD>Telescope lsp_references<CR>
 nnoremap <leader>ls <CMD>Telescope lsp_document_symbols<CR>
 nnoremap <leader>lw <CMD>Telescope lsp_workspace_symbols<CR>
 
-nnoremap <leader>r <CMD>Telescope find_files<CR>
+nnoremap <leader>r <CMD>Telescope find_files theme=dropdown previewer=false<CR>
 
 " Prevent x from copying to clipboard
 nnoremap x "_x
