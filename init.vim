@@ -22,7 +22,6 @@ Plug 'hrsh7th/vim-vsnip'
 
 " GUI enhancements
 Plug 'rsookram/monokaikai.vim'
-Plug 'folke/which-key.nvim'
 Plug 'folke/zen-mode.nvim'
 
 " telescope
@@ -102,9 +101,6 @@ require("zen-mode").setup {
   window = {
     width = 100,
   },
-}
-
-require("which-key").setup{
 }
 EOF
 
@@ -234,32 +230,38 @@ augroup end
 nnoremap 0 ^
 vnoremap 0 ^
 
-nnoremap <leader>d <CMD>lua vim.diagnostic.open_float()<CR>
 nnoremap [d <CMD>lua vim.diagnostic.goto_prev()<CR>
 nnoremap ]d <CMD>lua vim.diagnostic.goto_next()<CR>
 
 nnoremap <leader>e <CMD>Telescope recent_files theme=dropdown previewer=false pick<CR>
 nnoremap <leader>f <CMD>Telescope live_grep layout_strategy=vertical<CR>
 nnoremap <leader>g <CMD>Telescope grep_string layout_strategy=vertical<CR>
+nnoremap <leader>r <CMD>Telescope find_files theme=dropdown previewer=false<CR>
 
 " Treat long lines as break lines
 map j gj
 map k gk
 
 " LSP key bindings
-nnoremap <leader>la <CMD>lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>ln <CMD>lua vim.lsp.buf.rename()<CR>
-nnoremap <leader>lr <CMD>Telescope lsp_references<CR>
-nnoremap <leader>ls <CMD>Telescope lsp_document_symbols<CR>
-nnoremap <leader>lw <CMD>Telescope lsp_workspace_symbols<CR>
+nnoremap <leader>. <CMD>lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>6 <CMD>lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>G <CMD>Telescope lsp_references<CR>
+nnoremap <leader>o <CMD>Telescope lsp_document_symbols<CR>
+nnoremap <leader>O <CMD>Telescope lsp_workspace_symbols<CR>
 
-nnoremap <leader>r <CMD>Telescope find_files theme=dropdown previewer=false<CR>
+" Key bindings for splits
+nnoremap <leader>s <C-w>s
+nnoremap <leader>v <C-w>v
+nnoremap <leader>h <C-w>h
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>l <C-w>l
 
 " Prevent x from copying to clipboard
 nnoremap x "_x
 
 " Yank relative file path of current buffer
-nnoremap <leader>yf <CMD>let @+ = expand("%")<CR>
+nnoremap <leader>y <CMD>let @+ = expand("%")<CR>
 
 nnoremap <leader>z <CMD>ZenMode<CR>
 
