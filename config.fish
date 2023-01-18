@@ -42,7 +42,7 @@ alias gco "git commit -v"
 alias gl "git log --abbrev-commit --decorate=short"
 alias gd "git diff --patience --find-renames --patch-with-stat"
 alias gdh "git diff --patience --find-renames --patch-with-stat HEAD"
-alias gdst "git diff --patience --staged --patch-with-stat"
+alias gds "git diff --patience --staged --patch-with-stat"
 alias gch 'git checkout'
 alias gcb 'git checkout (git branch | sed "s/^ *//" | fzf)'
 alias ghpr 'gh pr create --web'
@@ -104,7 +104,7 @@ if test (uname) = "Darwin"
   set -gx JAVA_HOME '/Applications/Android Studio.app/Contents/jre/Contents/Home/'
   set ANDROID_SDK ~/Library/Android/sdk
 else
-  set -gx JAVA_HOME ~/tools/android-studio/jre
+  set -gx JAVA_HOME ~/tools/android-studio/jbr
   set ANDROID_SDK ~/Android/Sdk
 end
 
@@ -127,11 +127,6 @@ else
   set -gx PATH "/home/linuxbrew/.linuxbrew/bin" "/home/linuxbrew/.linuxbrew/sbin" $PATH;
   set -q MANPATH; or set MANPATH ''; set -gx MANPATH "/home/linuxbrew/.linuxbrew/share/man" $MANPATH;
   set -q INFOPATH; or set INFOPATH ''; set -gx INFOPATH "/home/linuxbrew/.linuxbrew/share/info" $INFOPATH;
-end
-
-# Go installation is managed by homebrew on macos
-if test (uname) = "Linux"
-  set -gx PATH $PATH /usr/local/go/bin
 end
 
 # Python user base binary directory

@@ -1,45 +1,32 @@
 " Map leader key to space
 let mapleader = "\<Space>"
 
-" =============================================================================
-" # PLUGINS
-" =============================================================================
+" Plugins
 set nocompatible
 filetype off
 call plug#begin()
 
-" Load plugins
-
-" Collection of common configs for built-in LSP client
 Plug 'neovim/nvim-lspconfig'
 
-" Autocompletion
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
-" GUI enhancements
 Plug 'rsookram/monokaikai.vim'
 Plug 'folke/zen-mode.nvim'
 
-" telescope
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'rsookram/telescope-recent-files'
 
-" Commenting
 Plug 'tpope/vim-commentary'
 
-" Git
 Plug 'tpope/vim-fugitive'
 
-" Language-specific
-Plug 'fatih/vim-go'
-Plug 'udalov/kotlin-vim'
 Plug 'rust-lang/rust.vim'
 
 call plug#end()
@@ -47,13 +34,11 @@ call plug#end()
 " Plugin settings
 
 lua << EOF
--- telescope
-local actions = require("telescope.actions")
 require("telescope").setup{
   defaults = {
     mappings = {
       i = {
-        ["<esc>"] = actions.close,
+        ["<esc>"] = require("telescope.actions").close,
         ["<C-u>"] = false -- so that I can delete to the beginning
       },
     },
@@ -104,10 +89,6 @@ require("zen-mode").setup {
 }
 EOF
 
-" Reduce timeout so that which-key panel appears sooner
-set timeoutlen=500
-
-
 " Completion
 "
 " menuone: popup even when there's only one match
@@ -119,7 +100,6 @@ set completeopt=menuone,noinsert,noselect
 set pumheight=12
 
 lua <<EOF
--- Set up nvim-cmp.
 local cmp = require'cmp'
 
 cmp.setup({
@@ -144,7 +124,6 @@ cmp.setup({
 })
 
 -- Configure LSP
--- nvim_lsp object
 local nvim_lsp = require'lspconfig'
 
 local on_attach = function(client, bufnr)
@@ -156,13 +135,6 @@ end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- Go
-nvim_lsp.gopls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
-
--- Enable rust_analyzer
 nvim_lsp.rust_analyzer.setup({
   on_attach = on_attach,
   settings = {
@@ -176,6 +148,13 @@ nvim_lsp.rust_analyzer.setup({
       completion = {
         postfix = {
           enable = false,
+        },
+      },
+      workspace = {
+        symbol = {
+          search = {
+            kind = 'all_symbols',
+          },
         },
       },
     }
@@ -192,13 +171,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 EOF
-
-" vim-go
-let g:go_highlight_types = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-" This is done through LSP instead
-let g:go_doc_keywordprg_enabled = 0
 
 " rust.vim
 let g:rustfmt_autosave = 1
@@ -239,8 +211,9 @@ nnoremap <leader>g <CMD>Telescope grep_string layout_strategy=vertical<CR>
 nnoremap <leader>r <CMD>Telescope find_files theme=dropdown previewer=false<CR>
 
 " Treat long lines as break lines
-map j gj
-map k gk
+map <expr> j v:count ? 'j' : 'gj'
+map <expr> k v:count ? 'k' : 'gk'
+
 
 " LSP key bindings
 nnoremap <leader>. <CMD>lua vim.lsp.buf.code_action()<CR>
@@ -265,21 +238,18 @@ nnoremap <leader>y <CMD>let @+ = expand("%")<CR>
 
 nnoremap <leader>z <CMD>ZenMode<CR>
 
+" Run last external command
+nnoremap <leader><tab> :!<Up><CR>
+
 " Move line(s) up and down (and retain position within line)
 nnoremap <Up> :move-2<CR>==
 vnoremap <Up> :move '<-2<cr>gv=gv
 nnoremap <Down> :move+<CR>==
 vnoremap <Down> :move '>+1<cr>gv=gv
 
+set relativenumber
 
-set wildmenu
-
-set showcmd
-set incsearch
 set ignorecase
-
-set noerrorbells
-set novisualbell
 
 set nohlsearch
 
@@ -294,10 +264,8 @@ set shiftwidth=2
 
 set textwidth=79
 
-set autoindent
 set copyindent
 
-set nocp
 set noswapfile
 
 set autoread
