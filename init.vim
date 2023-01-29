@@ -27,6 +27,7 @@ Plug 'tpope/vim-commentary'
 
 Plug 'tpope/vim-fugitive'
 
+Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
 
 call plug#end()
@@ -135,6 +136,11 @@ end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+nvim_lsp.gopls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+
 nvim_lsp.rust_analyzer.setup({
   on_attach = on_attach,
   settings = {
@@ -171,6 +177,13 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 EOF
+
+" vim-go
+let g:go_highlight_types = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+" This is done through LSP instead
+let g:go_doc_keywordprg_enabled = 0
 
 " rust.vim
 let g:rustfmt_autosave = 1
