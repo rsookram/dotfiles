@@ -101,14 +101,14 @@ set -gx LESS_TERMCAP_us \e'[32m'
 
 
 if test (uname) = "Darwin"
-  set -gx JAVA_HOME '/Applications/Android Studio.app/Contents/jre/Contents/Home/'
+  set -gx JAVA_HOME '/Applications/Android Studio.app/Contents/jbr/Contents/Home/'
   set ANDROID_SDK ~/Library/Android/sdk
 else
   set -gx JAVA_HOME ~/tools/android-studio/jbr
   set ANDROID_SDK ~/Android/Sdk
 end
 
-set -gx ANDROID_NDK_HOME $ANDROID_SDK/ndk/21.0.6113669/
+set -gx ANDROID_NDK_HOME $ANDROID_SDK/ndk/25.1.8937393/
 
 set -gx PATH $PATH ~/bin
 set -gx PATH $PATH ~/go/bin

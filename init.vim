@@ -142,7 +142,7 @@ nvim_lsp.rust_analyzer.setup({
       cargo = {
         features = 'all',
       },
-      checkOnSave = {
+      check = {
         command = 'clippy',
       },
       completion = {
