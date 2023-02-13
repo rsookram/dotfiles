@@ -192,10 +192,6 @@ let g:rustfmt_autosave = 1
 set termguicolors
 colorscheme monokaikai
 
-" Make the dimmed area around the buffer in zen mode be the same as the
-" terminal background
-hi ZenBg guibg=#333333
-
 " Hide tildes at the end of the file
 let &fcs='eob: '
 
@@ -260,7 +256,7 @@ vnoremap <Up> :move '<-2<cr>gv=gv
 nnoremap <Down> :move+<CR>==
 vnoremap <Down> :move '>+1<cr>gv=gv
 
-set relativenumber
+set number relativenumber
 
 set ignorecase
 

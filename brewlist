@@ -22,7 +22,6 @@ rust-analyzer
 scc
 scrcpy
 shellcheck
-tmux
 unzip
 xclip
 zstd
