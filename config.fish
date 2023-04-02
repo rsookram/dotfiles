@@ -71,7 +71,7 @@ function v
   if count $argv > /dev/null
     nvim $argv
   else
-    nvim '+Telescope recent_files theme=dropdown previewer=false pick'
+    nvim '+Telescope find_files theme=dropdown previewer=false'
   end
 end
 
