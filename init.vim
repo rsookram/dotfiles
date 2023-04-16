@@ -45,11 +45,7 @@ require("telescope").setup{
     },
     vimgrep_arguments = {
       "rg",
-      "--color=never",
-      "--no-heading",
-      "--with-filename",
-      "--line-number",
-      "--column",
+      "--vimgrep",
       "--smart-case",
       "--trim" -- this differs from the default
     },
@@ -215,8 +211,8 @@ nnoremap [d <CMD>lua vim.diagnostic.goto_prev()<CR>
 nnoremap ]d <CMD>lua vim.diagnostic.goto_next()<CR>
 
 nnoremap <leader>e <CMD>Telescope recent_files theme=dropdown previewer=false pick<CR>
-nnoremap <leader>f <CMD>Telescope live_grep layout_strategy=vertical<CR>
-nnoremap <leader>g <CMD>Telescope grep_string layout_strategy=vertical<CR>
+nnoremap <leader>f <CMD>Telescope live_grep disable_coordinates=true layout_strategy=vertical<CR>
+nnoremap <leader>g <CMD>Telescope grep_string word_match=-w disable_coordinates=true layout_strategy=vertical<CR>
 nnoremap <leader>r <CMD>Telescope find_files theme=dropdown previewer=false<CR>
 
 " Treat long lines as break lines
