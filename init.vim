@@ -81,7 +81,7 @@ require('telescope').load_extension('recent_files')
 
 require("zen-mode").setup {
   window = {
-    width = 100,
+    width = 105,
   },
 }
 EOF
