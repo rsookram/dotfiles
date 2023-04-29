@@ -18,7 +18,6 @@ mpv
 neovim
 pass
 ripgrep
-rust-analyzer
 scc
 scrcpy
 shellcheck
