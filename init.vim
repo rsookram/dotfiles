@@ -137,6 +137,11 @@ nvim_lsp.gopls.setup({
   capabilities = capabilities,
 })
 
+nvim_lsp.ruff_lsp.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+
 nvim_lsp.rust_analyzer.setup({
   on_attach = on_attach,
   settings = {
