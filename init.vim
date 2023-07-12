@@ -199,6 +199,9 @@ let &fcs='eob: '
 
 autocmd BufRead,BufNewFile *.md setlocal spell
 
+" Disable recommended style to keep 2 space indents
+let g:markdown_recommended_style = 0
+
 " Briefly highlight yanked region
 augroup highlight_yank
   autocmd!
