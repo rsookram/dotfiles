@@ -243,6 +243,9 @@ nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
 nnoremap <leader>l <C-w>l
 
+" Close the quickfix window
+nnoremap <leader>q :cclose<CR>
+
 " Prevent x from copying to clipboard
 nnoremap x "_x
 
