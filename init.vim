@@ -230,6 +230,7 @@ map <expr> k v:count ? 'k' : 'gk'
 
 " LSP key bindings
 nnoremap <leader>. <CMD>lua vim.lsp.buf.code_action()<CR>
+vnoremap <leader>. <CMD>lua vim.lsp.buf.code_action()<CR>
 nnoremap <leader>6 <CMD>lua vim.lsp.buf.rename()<CR>
 nnoremap <leader>G <CMD>Telescope lsp_references<CR>
 nnoremap <leader>o <CMD>Telescope lsp_document_symbols<CR>
