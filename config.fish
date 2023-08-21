@@ -65,7 +65,7 @@ alias tree 'exa --tree'
 alias c 'cargo'
 
 alias adbreset 'adb kill-server && adb devices'
-alias lc 'adb shell logcat -v color'
+alias lc 'adb shell logcat --format=time,color'
 
 function v
   if count $argv > /dev/null
