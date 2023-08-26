@@ -137,6 +137,12 @@ nvim_lsp.gopls.setup({
   capabilities = capabilities,
 })
 
+nvim_lsp.tsserver.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "npx", "typescript-language-server", "--stdio" },
+})
+
 nvim_lsp.ruff_lsp.setup({
   on_attach = on_attach,
   capabilities = capabilities,
