@@ -203,6 +203,10 @@ colorscheme monokaikai
 let &fcs='eob: '
 
 
+" Disable netrw banner (message at the top of the screen)
+let g:netrw_banner = 0
+
+
 autocmd BufRead,BufNewFile *.md setlocal spell
 
 " Disable recommended style to keep 2 space indents
