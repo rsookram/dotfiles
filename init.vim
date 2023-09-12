@@ -274,6 +274,11 @@ vnoremap <Up> :move '<-2<cr>gv=gv
 nnoremap <Down> :move+<CR>==
 vnoremap <Down> :move '>+1<cr>gv=gv
 
+" Use tags for C++
+autocmd FileType cpp nnoremap gd g<C-]>
+autocmd FileType cpp nnoremap <leader>o <CMD>Telescope current_buffer_tags<CR>
+autocmd FileType cpp nnoremap <leader>O <CMD>Telescope tags<CR>
+
 set number relativenumber
 
 set ignorecase
