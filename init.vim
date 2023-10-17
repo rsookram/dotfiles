@@ -15,7 +15,6 @@ Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
 Plug 'rsookram/monokaikai.vim'
-Plug 'folke/zen-mode.nvim'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
@@ -78,12 +77,6 @@ require("telescope").setup{
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('ui-select')
 require('telescope').load_extension('recent_files')
-
-require("zen-mode").setup {
-  window = {
-    width = 105,
-  },
-}
 EOF
 
 " Completion
@@ -262,8 +255,6 @@ nnoremap x "_x
 
 " Yank relative file path of current buffer
 nnoremap <leader>y <CMD>let @+ = expand("%")<CR>
-
-nnoremap <leader>z <CMD>ZenMode<CR>
 
 " Run last external command
 nnoremap <leader><tab> :!<Up><CR>
