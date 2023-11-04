@@ -132,6 +132,9 @@ end
 # Python user base binary directory
 set -gx PATH $PATH ~/.local/bin
 
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $PATH $BUN_INSTALL/bin
 
 # Use neovim for git commit messages
 set -gx VISUAL nvim
