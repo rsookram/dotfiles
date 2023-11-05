@@ -256,6 +256,9 @@ nnoremap x "_x
 " Yank relative file path of current buffer
 nnoremap <leader>y <CMD>let @+ = expand("%")<CR>
 
+" open netrw in the directory containing the current file
+nnoremap <leader><Up> :e %:h<CR>
+
 " Run last external command
 nnoremap <leader><tab> :!<Up><CR>
 
