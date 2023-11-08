@@ -50,7 +50,7 @@ alias ghpr 'gh pr create --web'
 function gcbo
   git fetch
 
-  git checkout origin/(gh pr list | fzf --reverse | awk '{ print $(NF-5) }')
+  git checkout origin/(gh pr list | fzf --reverse | awk '{ print $(NF-2) }')
 end
 
 function gbrowse
