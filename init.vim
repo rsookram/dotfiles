@@ -247,7 +247,9 @@ nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
 nnoremap <leader>l <C-w>l
 
-" Close the quickfix window
+" Key bindings for quickfix commands
+nnoremap <leader>n :cnext<CR>
+nnoremap <leader>p :cprev<CR>
 nnoremap <leader>q :cclose<CR>
 
 " Prevent x from copying to clipboard
@@ -261,6 +263,8 @@ nnoremap <leader><Up> :e %:h<CR>
 
 " Run last external command
 nnoremap <leader><tab> :!<Up><CR>
+
+nnoremap <leader>b :Git blame<CR>
 
 " Move line(s) up and down (and retain position within line)
 nnoremap <Up> :move-2<CR>==
