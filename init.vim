@@ -25,6 +25,7 @@ Plug 'rsookram/telescope-recent-files'
 Plug 'tpope/vim-commentary'
 
 Plug 'tpope/vim-fugitive'
+Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
@@ -77,6 +78,38 @@ require("telescope").setup{
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('ui-select')
 require('telescope').load_extension('recent_files')
+
+require('gitsigns').setup{
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set('n', l, r, opts)
+    end
+
+    map('[c', function()
+      if vim.wo.diff then return '[c' end
+      vim.schedule(function()
+        gs.prev_hunk()
+        vim.api.nvim_feedkeys("zz", "n", false)
+      end)
+      return '<Ignore>'
+    end, {expr=true})
+
+    map(']c', function()
+      if vim.wo.diff then return ']c' end
+      vim.schedule(function()
+        gs.next_hunk()
+        vim.api.nvim_feedkeys("zz", "n", false)
+      end)
+      return '<Ignore>'
+    end, {expr=true})
+
+    map('<leader>u', gs.reset_hunk)
+  end
+}
 EOF
 
 " Completion
