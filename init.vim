@@ -310,6 +310,16 @@ autocmd FileType cpp nnoremap gd g<C-]>
 autocmd FileType cpp nnoremap <leader>o <CMD>Telescope current_buffer_tags<CR>
 autocmd FileType cpp nnoremap <leader>O <CMD>Telescope tags<CR>
 
+" Open an independent view of the current buffer in a new tab
+nnoremap <leader>c
+      \ :let curr_ft = &filetype \|
+      \ :%y b <CR> \|
+      \ :tabnew \|
+      \ execute "setf " . curr_ft \|
+      \ setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile \|
+      \ :0put b \|
+      \ :0<CR>
+
 set number relativenumber
 
 set ignorecase
