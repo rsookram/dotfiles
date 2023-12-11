@@ -22,6 +22,9 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'rsookram/telescope-recent-files'
 
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
+
 Plug 'tpope/vim-commentary'
 
 Plug 'tpope/vim-fugitive'
@@ -78,6 +81,30 @@ require("telescope").setup{
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('ui-select')
 require('telescope').load_extension('recent_files')
+
+-- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
+vim.defer_fn(function()
+  require('nvim-treesitter.configs').setup {
+    ensure_installed = { 'cpp', 'go', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'bash', 'java', 'swift' },
+
+    highlight = { enable = true },
+    indent = { enable = true },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = '<c-k>',
+        node_incremental = '<c-k>',
+        node_decremental = '<c-j>',
+      },
+    },
+    refactor = {
+      highlight_definitions = {
+        enable = true,
+        clear_on_cursor_move = false,
+      },
+    },
+  }
+end, 0)
 
 require('gitsigns').setup{
   on_attach = function(bufnr)
@@ -212,9 +239,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 EOF
 
 " vim-go
-let g:go_highlight_types = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
 " This is done through LSP instead
 let g:go_doc_keywordprg_enabled = 0
 
@@ -325,6 +349,10 @@ set number relativenumber
 set ignorecase
 
 set nohlsearch
+
+" Make CursorHold event trigger sooner, to update the highlight of the
+" identifier under the cursor (for TreeSitter refactor's highlight)
+set updatetime=100
 
 set noruler
 set laststatus=0
