@@ -343,10 +343,6 @@ set ignorecase
 
 set nohlsearch
 
-" Make CursorHold event trigger sooner, to update the highlight of the
-" identifier under the cursor (for TreeSitter refactor's highlight)
-set updatetime=100
-
 set noruler
 set laststatus=0
 
