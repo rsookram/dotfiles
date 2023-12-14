@@ -23,7 +23,6 @@ Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'rsookram/telescope-recent-files'
 
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-Plug 'nvim-treesitter/nvim-treesitter-refactor'
 
 Plug 'tpope/vim-commentary'
 
@@ -85,7 +84,7 @@ require('telescope').load_extension('recent_files')
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
-    ensure_installed = { 'cpp', 'go', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'bash', 'java', 'swift' },
+    ensure_installed = { 'cpp', 'go', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'bash', 'java', 'swift', 'lua' },
 
     highlight = { enable = true },
     indent = { enable = true },
@@ -95,12 +94,6 @@ vim.defer_fn(function()
         init_selection = '<c-k>',
         node_incremental = '<c-k>',
         node_decremental = '<c-j>',
-      },
-    },
-    refactor = {
-      highlight_definitions = {
-        enable = true,
-        clear_on_cursor_move = false,
       },
     },
   }
