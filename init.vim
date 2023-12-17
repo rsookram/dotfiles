@@ -91,9 +91,8 @@ vim.defer_fn(function()
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = '<c-k>',
-        node_incremental = '<c-k>',
-        node_decremental = '<c-j>',
+        node_incremental = 'v',
+        node_decremental = '<c-v>',
       },
     },
   }
