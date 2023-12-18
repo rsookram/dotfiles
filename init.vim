@@ -329,12 +329,11 @@ autocmd FileType cpp nnoremap <leader>O <CMD>Telescope tags<CR>
 " Open an independent view of the current buffer in a new tab
 nnoremap <leader>c
       \ :let curr_ft = &filetype \|
-      \ :%y b <CR> \|
       \ :tabnew \|
-      \ execute "setf " . curr_ft \|
+      \ execute "setfiletype " . curr_ft \|
       \ setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile \|
-      \ :0put b \|
-      \ :0<CR>
+      \ :read # <CR> \|
+      \ :0d<CR>
 
 set number relativenumber
 
