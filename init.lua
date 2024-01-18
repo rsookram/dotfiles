@@ -375,7 +375,7 @@ vim.keymap.set('n', '<leader><leader>i', ':topleft Git add -i<CR>')
 vim.keymap.set('n', '<leader><leader>p', ':topleft Git add -p * .*<CR>')
 vim.keymap.set('n', '<leader><leader>l', ':topleft Git log --abbrev-commit --decorate=short<CR>')
 vim.keymap.set('n', '<leader><leader>c', ':tab Git commit -v<CR>')
-vim.keymap.set('n', '<leader><leader>d', ':topleft Git diff --patience --find-renames --patch-with-stat<CR>')
+vim.keymap.set('n', '<leader><leader>d', ':tab Git diff --patience --find-renames --patch-with-stat<CR>')
 
 -- Move line(s) up and down (and retain position within line)
 vim.keymap.set('n', '<Up>', '<CMD>move-2<CR>==')
