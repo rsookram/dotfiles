@@ -74,7 +74,10 @@ require("telescope").setup{
       "rg",
       "--vimgrep",
       "--smart-case",
-      "--trim" -- this differs from the default
+      -- the following options differ from the default
+      "--hidden",
+      "--glob=!.git/*",
+      "--trim"
     },
   },
   pickers = {
