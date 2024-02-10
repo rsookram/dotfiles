@@ -282,7 +282,7 @@ vim.g.netrw_banner = 0
 vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
   pattern = "*.md",
   callback = function()
-    vim.opt.spell = true
+    vim.opt_local.spell = true
   end,
 })
 
