@@ -392,7 +392,11 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = "cpp",
   callback = function()
     vim.keymap.set('n', 'gd', 'g<C-]>')
-    vim.keymap.set('n', '<leader>o', require('telescope.builtin').current_buffer_tags)
+    vim.keymap.set('n', '<leader>o', function()
+      require('telescope.builtin').current_buffer_tags(
+        require('telescope.themes').get_dropdown { previewer = false }
+      )
+    end)
     vim.keymap.set('n', '<leader>O', require('telescope.builtin').tags)
   end,
 })
