@@ -352,8 +352,8 @@ vim.keymap.set('n', '<leader>k', '<C-w>k')
 vim.keymap.set('n', '<leader>l', '<C-w>l')
 
 -- Key bindings for quickfix commands
-vim.keymap.set('n', '<leader>n', vim.cmd.cnext)
-vim.keymap.set('n', '<leader>p', vim.cmd.cprev)
+vim.keymap.set('n', '<C-n>', vim.cmd.cnext)
+vim.keymap.set('n', '<C-p>', vim.cmd.cprev)
 vim.keymap.set('n', '<leader>q', vim.cmd.cclose)
 
 -- Prevent x from copying to clipboard
