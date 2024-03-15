@@ -88,6 +88,9 @@ alias bc 'bc --quiet --mathlib'
 set -gx FZF_CTRL_R_OPTS '--reverse'
 # Use output from fd as default list for fzf. Allows fzf to respect .gitignore
 set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden --strip-cwd-prefix'
+if which fzf > /dev/null
+  fzf --fish | source
+end
 
 # colour man pages
 set -gx LESS_TERMCAP_mb \e'[01;31m'
