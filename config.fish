@@ -83,6 +83,8 @@ function j
   end
 end
 
+alias dl 'cd ~/Downloads'
+
 alias bc 'bc --quiet --mathlib'
 
 set -gx FZF_CTRL_R_OPTS '--reverse'
