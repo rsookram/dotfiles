@@ -50,8 +50,6 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
-  'tpope/vim-commentary',
-
   'tpope/vim-fugitive',
   'lewis6991/gitsigns.nvim',
 
@@ -198,7 +196,6 @@ local on_attach = function(client, bufnr)
   local opts = { noremap = true, silent = true }
 
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<CMD>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<CMD>lua vim.lsp.buf.hover()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>p', '<CMD>lua vim.lsp.buf.signature_help()<CR>', opts)
 end
 
@@ -308,11 +305,8 @@ vim.keymap.set({ 'n', 'v' }, '0', '^')
 vim.keymap.set({'n', 'v'}, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 vim.keymap.set({'n', 'v'}, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-
 vim.keymap.set('n', '<leader>e', function()
-  require('telescope').extensions.recent_files.pick(require('telescope.themes').get_dropdown {
+  require('telescope').extensions.recent_files.pick({
     previewer = false,
   })
 end)
@@ -331,7 +325,7 @@ vim.keymap.set('n', '<leader>g', function()
 end)
 
 vim.keymap.set('n', '<leader>r', function()
-  require('telescope.builtin').find_files(require('telescope.themes').get_dropdown {
+  require('telescope.builtin').find_files({
     previewer = false,
   })
 end)
@@ -394,7 +388,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', 'gd', 'g<C-]>')
     vim.keymap.set('n', '<leader>o', function()
       require('telescope.builtin').current_buffer_tags(
-        require('telescope.themes').get_dropdown { previewer = false }
+        { previewer = false }
       )
     end)
     vim.keymap.set('n', '<leader>O', require('telescope.builtin').tags)
