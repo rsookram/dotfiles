@@ -306,7 +306,7 @@ vim.keymap.set({'n', 'v'}, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 vim.keymap.set({'n', 'v'}, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
 vim.keymap.set('n', '<leader>e', function()
-  require('telescope').extensions.recent_files.pick({
+  require('telescope').extensions.recent_files.pick(require('telescope.themes').get_dropdown {
     previewer = false,
   })
 end)
@@ -325,7 +325,7 @@ vim.keymap.set('n', '<leader>g', function()
 end)
 
 vim.keymap.set('n', '<leader>r', function()
-  require('telescope.builtin').find_files({
+  require('telescope.builtin').find_files(require('telescope.themes').get_dropdown {
     previewer = false,
   })
 end)
@@ -388,7 +388,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', 'gd', 'g<C-]>')
     vim.keymap.set('n', '<leader>o', function()
       require('telescope.builtin').current_buffer_tags(
-        { previewer = false }
+        require('telescope.themes').get_dropdown { previewer = false }
       )
     end)
     vim.keymap.set('n', '<leader>O', require('telescope.builtin').tags)
