@@ -120,7 +120,7 @@ set -gx PATH $PATH ~/bin
 set -gx PATH $PATH ~/go/bin
 set -gx PATH ~/.cargo/bin $PATH
 set -gx PATH $PATH $ANDROID_SDK/platform-tools
-set -gx PATH $PATH $ANDROID_SDK/build-tools/30.0.3
+set -gx PATH $PATH $ANDROID_SDK/build-tools/35.0.0
 set -gx PATH $JAVA_HOME/bin $PATH
 set -gx PATH $PATH ~/tools/depot_tools
 
