@@ -197,6 +197,8 @@ local on_attach = function(client, bufnr)
 
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<CMD>lua vim.lsp.buf.definition()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>p', '<CMD>lua vim.lsp.buf.signature_help()<CR>', opts)
+
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gh', '<CMD>lua vim.diagnostic.open_float()<CR>', opts)
 end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
