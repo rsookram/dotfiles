@@ -110,7 +110,7 @@ require('telescope').load_extension('recent_files')
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
-    ensure_installed = { 'cpp', 'go', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'bash', 'java', 'swift', 'lua' },
+    ensure_installed = { 'go', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'bash', 'java', 'lua' },
 
     highlight = { enable = true },
     indent = { enable = true },
@@ -261,13 +261,6 @@ vim.g.go_doc_keywordprg_enabled = 0
 -- rust.vim
 vim.g.rustfmt_autosave = 1
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = {"*.js", "*.ts", "*.tsx"},
-  callback = function()
-    vim.lsp.buf.format()
-  end,
-})
-
 -- Theme
 vim.opt.termguicolors = true
 vim.cmd.colorscheme 'monokaikai'
@@ -398,20 +391,6 @@ vim.keymap.set('n', '<Up>', '<CMD>move-2<CR>==')
 vim.keymap.set('v', '<Up>', ":move '<-2<CR>gv=gv")
 vim.keymap.set('n', '<Down>', '<CMD>move+<CR>==')
 vim.keymap.set('v', '<Down>', ":move '>+1<CR>gv=gv")
-
--- Use tags for C++
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = "cpp",
-  callback = function()
-    vim.keymap.set('n', 'gd', 'g<C-]>')
-    vim.keymap.set('n', '<leader>o', function()
-      require('telescope.builtin').current_buffer_tags(
-        require('telescope.themes').get_dropdown { previewer = false }
-      )
-    end)
-    vim.keymap.set('n', '<leader>O', require('telescope.builtin').tags)
-  end,
-})
 
 
 vim.opt.number = true
