@@ -153,7 +153,7 @@ set -gx BAT_STYLE 'plain'
 # Disable auto-update with homebrew
 set -gx HOMEBREW_NO_AUTO_UPDATE 1
 
-if which fnm > /dev/null
+if type -q fnm
   fnm env --use-on-cd | source 1>&2
 end
 
