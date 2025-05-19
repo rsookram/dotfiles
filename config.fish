@@ -95,16 +95,8 @@ set -gx FZF_CTRL_R_OPTS '--reverse'
 # Use output from fd as default list for fzf. Allows fzf to respect .gitignore
 set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden --strip-cwd-prefix'
 
-# colour man pages
-set -gx LESS_TERMCAP_mb \e'[01;31m'
-set -gx LESS_TERMCAP_md \e'[31m'
-set -gx LESS_TERMCAP_me \e'[0m'
-set -gx LESS_TERMCAP_se \e'[0m'
-set -gx LESS_TERMCAP_so \e'[38;5;246m'
-set -gx LESS_TERMCAP_ue \e'[0m'
-set -gx LESS_TERMCAP_us \e'[32m'
-
-
+# Use neovim for viewing man pages
+set -gx MANPAGER 'nvim +Man!'
 
 if test (uname) = "Darwin"
   set -gx JAVA_HOME '/Applications/Android Studio.app/Contents/jbr/Contents/Home/'
