@@ -1,0 +1,39 @@
+font-feature = -calt,-liga,-dlig
+
+font-size = 19
+
+background = #333333
+foreground = #ffffff
+
+selection-foreground = #333333
+selection-background = #ffffff
+cursor-color = #ffffff
+
+palette = 0=#000000
+palette = 1=#e6264b
+palette = 2=#a0eb01
+palette = 3=#fcf330
+palette = 4=#6c99bb
+palette = 5=#ff8700
+palette = 6=#ae81ff
+palette = 7=#e4e4e4
+palette = 8=#929292
+palette = 9=#cc0000
+palette = 10=#baeb01
+palette = 11=#fcd500
+palette = 12=#5fafff
+palette = 13=#e54c01
+palette = 14=#34e2e2
+palette = 15=#eeeeec
+
+keybind = alt+t=new_tab
+
+keybind = alt+d=new_split:right
+keybind = alt+shift+d=new_split:down
+
+keybind = alt+k=goto_split:up
+keybind = alt+j=goto_split:down
+keybind = alt+l=goto_split:right
+keybind = alt+h=goto_split:left
+
+window-decoration = none
