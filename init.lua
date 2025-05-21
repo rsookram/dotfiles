@@ -110,7 +110,7 @@ require('telescope').load_extension('recent_files')
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
-    ensure_installed = { 'go', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'bash', 'java', 'lua' },
+    ensure_installed = { 'go', 'rust', 'tsx', 'javascript', 'typescript', 'bash', 'java', 'lua' },
 
     highlight = { enable = true },
     indent = { enable = true },
@@ -209,11 +209,6 @@ nvim_lsp.gopls.setup({
 })
 
 nvim_lsp.ts_ls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
-
-nvim_lsp.ruff_lsp.setup({
   on_attach = on_attach,
   capabilities = capabilities,
 })
