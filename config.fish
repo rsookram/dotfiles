@@ -108,27 +108,26 @@ end
 
 set -gx ANDROID_NDK_HOME $ANDROID_SDK/ndk/25.1.8937393/
 
-set -gx PATH $PATH ~/bin
-set -gx PATH $PATH ~/go/bin
-set -gx PATH ~/.cargo/bin $PATH
-set -gx PATH $PATH $ANDROID_SDK/platform-tools
-set -gx PATH $PATH $ANDROID_SDK/build-tools/35.0.0
-set -gx PATH $JAVA_HOME/bin $PATH
-set -gx PATH $PATH ~/tools/depot_tools
+fish_add_path ~/bin
+fish_add_path ~/go/bin
+fish_add_path ~/.cargo/bin
+fish_add_path $ANDROID_SDK/platform-tools
+fish_add_path $ANDROID_SDK/build-tools/35.0.0
+fish_add_path $JAVA_HOME/bin
 
 if test (uname) = "Darwin"
-  set -gx PATH $PATH /opt/homebrew/bin
+  fish_add_path /opt/homebrew/bin
 else
   set -gx HOMEBREW_PREFIX "/home/linuxbrew/.linuxbrew";
   set -gx HOMEBREW_CELLAR "/home/linuxbrew/.linuxbrew/Cellar";
   set -gx HOMEBREW_REPOSITORY "/home/linuxbrew/.linuxbrew/Homebrew";
-  set -gx PATH $PATH "/home/linuxbrew/.linuxbrew/bin" "/home/linuxbrew/.linuxbrew/sbin";
+  fish_add_path "/home/linuxbrew/.linuxbrew/bin" "/home/linuxbrew/.linuxbrew/sbin";
   set -q MANPATH; or set MANPATH ''; set -gx MANPATH "/home/linuxbrew/.linuxbrew/share/man" $MANPATH;
   set -q INFOPATH; or set INFOPATH ''; set -gx INFOPATH "/home/linuxbrew/.linuxbrew/share/info" $INFOPATH;
 end
 
 # Python user base binary directory
-set -gx PATH $PATH ~/.local/bin
+fish_add_path ~/.local/bin
 
 # Use neovim for git commit messages
 set -gx VISUAL nvim
