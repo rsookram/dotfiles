@@ -81,7 +81,7 @@ require("telescope").setup{
   pickers = {
     find_files = {
       -- Hidden files aren't shown by default
-      find_command = { "fd", "--hidden", "--type", "f", "--strip-cwd-prefix", "--glob", "", "--exclude", ".git/" },
+      find_command = { "fd", "--hidden", "--type", "f", "--strip-cwd-prefix", "--glob", "", "--exclude", ".git/", "--max-results", "32767" },
     },
     live_grep = {
       path_display = { "shorten" },
