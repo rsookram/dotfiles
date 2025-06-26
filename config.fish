@@ -28,6 +28,7 @@ set --universal fish_color_param FF8700
 set --universal fish_color_quote FCF330
 set --universal fish_color_command A0EB01
 
+abbr -a --position anywhere --set-cursor -- -h "-h 2>&1 | bat --plain --language=help"
 
 alias g "git"
 alias gst "git status -sb"
