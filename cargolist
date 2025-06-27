@@ -1,5 +1,1 @@
-cargo-audit
 cargo-bloat
-cargo-outdated
-cargo-update
-flamegraph
