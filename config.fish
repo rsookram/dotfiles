@@ -36,9 +36,7 @@ alias gsh "git show"
 alias ga "git add"
 alias gai "git add -i"
 alias gap "git add -p * .*"
-alias gr "git rebase"
 alias gb "git branch -vv"
-alias gbl "git blame"
 alias gco "git commit -v"
 alias gl "git log --abbrev-commit --decorate=short"
 alias gd "git diff --patience --find-renames --patch-with-stat"
@@ -68,6 +66,13 @@ else
 end
 
 alias c 'cargo'
+alias cr 'cargo run'
+alias crr 'cargo run --release'
+alias cb 'cargo build'
+alias cbr 'cargo build --release'
+alias ci 'cargo install'
+alias cu 'cargo update --verbose'
+alias ct 'cargo test'
 
 alias adbreset 'adb kill-server && adb devices'
 alias lc 'adb shell logcat --format=time,color'
