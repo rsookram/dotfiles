@@ -110,7 +110,7 @@ require('telescope').load_extension('recent_files')
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
-    ensure_installed = { 'go', 'rust', 'tsx', 'javascript', 'typescript', 'bash', 'java', 'lua' },
+    ensure_installed = { 'go', 'rust', 'javascript', 'typescript', 'bash', 'lua' },
 
     highlight = { enable = true },
     indent = { enable = true },
@@ -192,29 +192,24 @@ cmp.setup({
 -- Configure LSP
 local nvim_lsp = require'lspconfig'
 
-local on_attach = function(client, bufnr)
-  local opts = { noremap = true, silent = true }
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(ev)
+    local opts = { noremap = true, silent = true }
 
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<CMD>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>p', '<CMD>lua vim.lsp.buf.signature_help()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(ev.buf, 'n', 'gd', '<CMD>lua vim.lsp.buf.definition()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<leader>p', '<CMD>lua vim.lsp.buf.signature_help()<CR>', opts)
 
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gh', '<CMD>lua vim.diagnostic.open_float()<CR>', opts)
-end
+    vim.api.nvim_buf_set_keymap(ev.buf, 'n', 'gh', '<CMD>lua vim.diagnostic.open_float()<CR>', opts)
+  end,
+})
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 nvim_lsp.gopls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
-
-nvim_lsp.ts_ls.setup({
-  on_attach = on_attach,
   capabilities = capabilities,
 })
 
 nvim_lsp.rust_analyzer.setup({
-  on_attach = on_attach,
   settings = {
     ["rust-analyzer"] = {
       cargo = {
@@ -228,19 +223,16 @@ nvim_lsp.rust_analyzer.setup({
           enable = false,
         },
       },
-      workspace = {
-        symbol = {
-          search = {
-            kind = 'all_symbols',
-          },
-        },
-      },
     }
   },
   capabilities = capabilities,
 })
 
 -- Enable diagnostics
+vim.diagnostic.config({
+  virtual_text = { current_line = true }
+})
+
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = true,
@@ -341,7 +333,6 @@ vim.keymap.set({'n', 'v'}, '<leader>.', vim.lsp.buf.code_action)
 vim.keymap.set('n', '<leader>6', vim.lsp.buf.rename)
 vim.keymap.set('n', '<leader>G', require('telescope.builtin').lsp_references)
 vim.keymap.set('n', '<leader>o', require('telescope.builtin').lsp_document_symbols)
-vim.keymap.set('n', '<leader>O', require('telescope.builtin').lsp_workspace_symbols)
 
 -- Key bindings for splits
 vim.keymap.set('n', '<leader>s', '<C-w>s')
