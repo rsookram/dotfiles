@@ -20,12 +20,21 @@ require('lazy').setup({
   'neovim/nvim-lspconfig',
 
   {
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-vsnip',
-      'hrsh7th/vim-vsnip',
+    'saghen/blink.cmp',
+    version = '1.*',
+    opts = {
+      keymap = { preset = 'super-tab' },
+      completion = {
+        ghost_text = { enabled = true },
+        menu = {
+          draw = {
+            columns = {
+              { "label", "label_description", gap = 1 },
+              { "kind" },
+            }
+          },
+        },
+      }
     },
   },
 
@@ -166,29 +175,6 @@ vim.o.completeopt = "menuone,noinsert,noselect"
 -- Limit height (default is available screen height)
 vim.opt.pumheight = 12
 
-local cmp = require'cmp'
-
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-  window = {
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<TAB>'] = cmp.mapping.confirm({ select = true }),
-  }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'buffer' },
-    { name = 'vsnip' },
-  }),
-  experimental = {
-    ghost_text = true,
-  },
-})
-
 -- Configure LSP
 local nvim_lsp = require'lspconfig'
 
@@ -203,7 +189,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 nvim_lsp.gopls.setup({
   capabilities = capabilities,
