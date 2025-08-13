@@ -1,0 +1,36 @@
+[terminal.shell]
+program = "/usr/bin/fish"
+
+[window]
+decorations = "none"
+startup_mode = "Maximized"
+
+[font]
+size = 19.0
+
+[font.normal]
+family = "JetBrainsMonoNL"
+
+[colors.primary]
+background = '#333333'
+foreground = '#ffffff'
+
+[colors.normal]
+black   = '#000000'
+red     = '#e6264b'
+green   = '#a0eb01'
+yellow  = '#fcf330'
+blue    = '#6c99bb'
+magenta = '#ff8700'
+cyan    = '#ae81ff'
+white   = '#e4e4e4'
+
+[colors.bright]
+black   = '#929292'
+red     = '#cc0000'
+green   = '#baeb01'
+yellow  = '#fcd500'
+blue    = '#5fafff'
+magenta = '#e54c01'
+cyan    = '#34e2e2'
+white   = '#eeeeec'
