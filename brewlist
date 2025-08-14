@@ -15,4 +15,5 @@ ripgrep
 shellcheck
 unzip
 uv
+zellij
 zstd

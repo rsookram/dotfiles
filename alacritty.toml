@@ -1,5 +1,6 @@
 [terminal.shell]
 program = "/usr/bin/fish"
+args = ["-c", "zellij"]
 
 [window]
 decorations = "none"
