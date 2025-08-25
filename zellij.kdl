@@ -98,7 +98,7 @@ keybinds clear-defaults=true {
         bind "Alt o" { MoveTab "right"; }
         bind "Alt p" { TogglePaneInGroup; }
         bind "Alt Shift p" { ToggleGroupMarking; }
-        bind "Ctrl q" { Quit; }
+        bind "Ctrl Q" { Quit; }
     }
     shared_except "move" {
         bind "Ctrl h" { SwitchToMode "move"; }
@@ -113,7 +113,7 @@ keybinds clear-defaults=true {
         bind "Ctrl p" { SwitchToMode "pane"; }
     }
     shared_except "resize" {
-        bind "Ctrl n" { SwitchToMode "resize"; }
+        bind "Ctrl N" { SwitchToMode "resize"; }
     }
     shared_except "normal" "entersearch" {
         bind "enter" { SwitchToMode "normal"; }
@@ -259,7 +259,15 @@ themes {
             emphasis_3 255 0 0
         }
         frame_selected {
-            base 200 200 200
+            base 255 255 255
+            background 0
+            emphasis_0 255 0 0
+            emphasis_1 0 255 0
+            emphasis_2 0 0 255
+            emphasis_3 255 0 0
+        }
+        frame_unselected {
+            base 100 100 100
             background 0
             emphasis_0 255 0 0
             emphasis_1 0 255 0
