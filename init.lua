@@ -56,8 +56,6 @@ require('lazy').setup({
   },
 
   'lewis6991/gitsigns.nvim',
-
-  'rust-lang/rust.vim',
 })
 
 -- Plugin settings
@@ -158,6 +156,13 @@ vim.lsp.config('rust_analyzer', {
 
 vim.lsp.enable('rust_analyzer')
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.rs",
+  callback = function()
+    vim.lsp.buf.format()
+  end,
+})
+
 -- Enable diagnostics
 vim.diagnostic.config({
   virtual_text = { current_line = true }
@@ -170,9 +175,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = true,
   }
 )
-
--- rust.vim
-vim.g.rustfmt_autosave = 1
 
 -- Theme
 vim.opt.termguicolors = true
