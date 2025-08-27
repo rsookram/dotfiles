@@ -44,26 +44,14 @@ alias gdh "git diff --patience --find-renames --patch-with-stat HEAD"
 alias gds "git diff --patience --staged --patch-with-stat"
 alias gch 'git checkout'
 alias gcb 'git checkout (git branch | sed "s/^ *//" | fzf)'
-alias ghpr 'gh pr create --web'
-
-function gcbo
-  git fetch
-
-  git checkout origin/(gh pr list | fzf --reverse | awk '{ print $(NF-2) }')
-end
 
 function gbrowse
   git log --oneline --no-merges --color=always -- . |
     fzf --ansi --no-sort --reverse --preview 'echo {} | cut -d" " -f1 | xargs git show --color=always | delta' --preview-window=wrap
 end
 
-if test (uname) = "Darwin"
-  alias l 'ls -1 -G'
-  alias ll 'ls -alFG'
-else
-  alias l 'ls -1 -G --color'
-  alias ll 'ls -alFG --color'
-end
+alias l 'ls -1 -G --color'
+alias ll 'ls -alFG --color'
 
 alias c 'cargo'
 alias cr 'cargo run'
@@ -111,15 +99,10 @@ set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden --strip-cwd-prefix'
 # Use neovim for viewing man pages
 set -gx MANPAGER 'nvim +Man!'
 
-if test (uname) = "Darwin"
-  set -gx JAVA_HOME '/Applications/Android Studio.app/Contents/jbr/Contents/Home/'
-  set ANDROID_SDK ~/Library/Android/sdk
-else
-  set -gx JAVA_HOME ~/tools/android-studio/jbr
-  set ANDROID_SDK ~/Android/Sdk
-end
+set -gx JAVA_HOME ~/tools/android-studio/jbr
+set ANDROID_SDK ~/Android/Sdk
 
-set -gx ANDROID_NDK_HOME $ANDROID_SDK/ndk/25.1.8937393/
+set -gx ANDROID_HOME $ANDROID_SDK
 
 fish_add_path ~/bin
 fish_add_path ~/go/bin
@@ -128,18 +111,13 @@ fish_add_path $ANDROID_SDK/platform-tools
 fish_add_path $ANDROID_SDK/build-tools/35.0.0
 fish_add_path $JAVA_HOME/bin
 
-if test (uname) = "Darwin"
-  fish_add_path /opt/homebrew/bin
-else
-  set -gx HOMEBREW_PREFIX "/home/linuxbrew/.linuxbrew";
-  set -gx HOMEBREW_CELLAR "/home/linuxbrew/.linuxbrew/Cellar";
-  set -gx HOMEBREW_REPOSITORY "/home/linuxbrew/.linuxbrew/Homebrew";
-  fish_add_path "/home/linuxbrew/.linuxbrew/bin" "/home/linuxbrew/.linuxbrew/sbin";
-  set -q MANPATH; or set MANPATH ''; set -gx MANPATH "/home/linuxbrew/.linuxbrew/share/man" $MANPATH;
-  set -q INFOPATH; or set INFOPATH ''; set -gx INFOPATH "/home/linuxbrew/.linuxbrew/share/info" $INFOPATH;
-end
+set -gx HOMEBREW_PREFIX "/home/linuxbrew/.linuxbrew";
+set -gx HOMEBREW_CELLAR "/home/linuxbrew/.linuxbrew/Cellar";
+set -gx HOMEBREW_REPOSITORY "/home/linuxbrew/.linuxbrew/Homebrew";
+fish_add_path "/home/linuxbrew/.linuxbrew/bin" "/home/linuxbrew/.linuxbrew/sbin";
+set -q MANPATH; or set MANPATH ''; set -gx MANPATH "/home/linuxbrew/.linuxbrew/share/man" $MANPATH;
+set -q INFOPATH; or set INFOPATH ''; set -gx INFOPATH "/home/linuxbrew/.linuxbrew/share/info" $INFOPATH;
 
-# Python user base binary directory
 fish_add_path ~/.local/bin
 
 # Use neovim for git commit messages
@@ -153,10 +131,4 @@ set -gx BAT_STYLE 'plain'
 # Disable auto-update with homebrew
 set -gx HOMEBREW_NO_AUTO_UPDATE 1
 
-if type -q fnm
-  fnm env --use-on-cd | source 1>&2
-end
-
-if which fzf > /dev/null
-  fzf --fish | source
-end
+fzf --fish | source
