@@ -69,14 +69,7 @@ function v
   if count $argv > /dev/null
     nvim $argv
   else
-    # As of Neovim 0.11.2, running the command synchronously doesn't move focus
-    # to the UI that Telescope displays.
-    # https://github.com/nvim-telescope/telescope.nvim/issues/3480
-    nvim -c 'lua vim.defer_fn(function()
-      require("telescope.builtin").find_files(require("telescope.themes").get_dropdown {
-        previewer = false,
-      })
-    end, 0)'
+    nvim -c ':FzfLua files'
   end
 end
 

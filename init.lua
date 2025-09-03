@@ -43,55 +43,21 @@ require('lazy').setup({
 
   'rsookram/monokaikai.vim',
 
-  {
-    'nvim-telescope/telescope.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make',
-      },
-    },
-  },
+  "ibhagwan/fzf-lua",
 
   'lewis6991/gitsigns.nvim',
 })
 
 -- Plugin settings
 
-require("telescope").setup{
-  defaults = {
-    layout_strategy = 'vertical',
-    mappings = {
-      i = {
-        ["<esc>"] = require("telescope.actions").close,
-        ["<C-u>"] = false -- so that I can delete to the beginning
-      },
-    },
-    vimgrep_arguments = {
-      "rg",
-      "--vimgrep",
-      "--smart-case",
-      -- the following options differ from the default
-      "--hidden",
-      "--glob=!.git/*",
-      "--trim"
-    },
+local fzf_actions = require("fzf-lua.actions")
+require('fzf-lua').setup{
+  winopts = { backdrop = 100 }, -- disable scrim
+  keymap = {
+    fzf = { ['ctrl-q'] = 'select-all+accept' },
   },
-  pickers = {
-    find_files = {
-      -- Hidden files aren't shown by default
-      find_command = { "fd", "--hidden", "--type", "f", "--strip-cwd-prefix", "--glob", "", "--exclude", ".git/", "--max-results", "32767" },
-    },
-    live_grep = {
-      path_display = { "shorten" },
-    },
-    grep_string = {
-      path_display = { "shorten" },
-    },
-  },
+  files = { previewer = 'false' },
 }
-require('telescope').load_extension('fzf')
 
 require('gitsigns').setup{
   on_attach = function(bufnr)
@@ -214,29 +180,22 @@ vim.keymap.set({'n', 'v'}, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 vim.keymap.set({'n', 'v'}, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
 vim.keymap.set('n', '<leader>f', function()
-  require('telescope.builtin').live_grep {
-    disable_coordinates = true,
-  }
+  require('fzf-lua').live_grep()
 end)
 
 vim.keymap.set('n', '<leader>g', function()
-  require('telescope.builtin').grep_string {
-    disable_coordinates = true,
-    word_match = '-w',
-  }
+  require('fzf-lua').grep_cword()
 end)
 
 vim.keymap.set('n', '<leader>r', function()
-  require('telescope.builtin').find_files(require('telescope.themes').get_dropdown {
-    previewer = false,
-  })
+  require('fzf-lua').files()
 end)
 
 -- LSP key bindings
 vim.keymap.set({'n', 'v'}, '<leader>.', vim.lsp.buf.code_action)
 vim.keymap.set('n', '<leader>6', vim.lsp.buf.rename)
-vim.keymap.set('n', '<leader>G', require('telescope.builtin').lsp_references)
-vim.keymap.set('n', '<leader>o', require('telescope.builtin').lsp_document_symbols)
+vim.keymap.set('n', '<leader>G', require('fzf-lua').lsp_references)
+vim.keymap.set('n', '<leader>o', require('fzf-lua').lsp_document_symbols)
 
 -- Key bindings for splits
 vim.keymap.set('n', '<leader>s', '<C-w>s')
