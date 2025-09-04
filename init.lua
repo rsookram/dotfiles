@@ -20,31 +20,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  'neovim/nvim-lspconfig',
-
-  {
-    'saghen/blink.cmp',
-    version = '1.*',
-    opts = {
-      keymap = { preset = 'super-tab' },
-      completion = {
-        ghost_text = { enabled = true },
-        menu = {
-          draw = {
-            columns = {
-              { "label", "label_description", gap = 1 },
-              { "kind" },
-            }
-          },
-        },
-      }
-    },
-  },
-
   'rsookram/monokaikai.vim',
-
-  "ibhagwan/fzf-lua",
-
+  'ibhagwan/fzf-lua',
   'lewis6991/gitsigns.nvim',
 })
 
@@ -90,7 +67,8 @@ require('gitsigns').setup{
 -- menuone: popup even when there's only one match
 -- noinsert: Do not insert text until a selection is made
 -- noselect: Do not select, force user to select one from the menu
-vim.o.completeopt = "menuone,noinsert,noselect"
+-- fuzzy: more flexible matching
+vim.o.completeopt = "menuone,noinsert,noselect,fuzzy"
 
 -- Limit height (default is available screen height)
 vim.opt.pumheight = 12
@@ -98,35 +76,45 @@ vim.opt.pumheight = 12
 -- Configure LSP
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
-    local opts = { noremap = true, silent = true }
+    local opts = { buffer = ev.buf }
 
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', 'gd', '<CMD>lua vim.lsp.buf.definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<leader>p', '<CMD>lua vim.lsp.buf.signature_help()<CR>', opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'grr', require('fzf-lua').lsp_references, opts)
+    vim.keymap.set('n', 'gO', require('fzf-lua').lsp_document_symbols, opts)
 
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', 'gh', '<CMD>lua vim.diagnostic.open_float()<CR>', opts)
+    vim.keymap.set('n', '<leader>p', function() vim.api.nvim_echo({{'use `<C-s>` in insert mode instead'}}, false, {}) end, opts)
+    vim.keymap.set('n', 'gh', function() vim.api.nvim_echo({{'use `<C-w>d` instead'}}, false, {}) end, opts)
+    vim.keymap.set({'n', 'v'}, '<leader>.', function() vim.api.nvim_echo({{'use `gra` instead'}}, false, {}) end, opts)
+    vim.keymap.set('n', '<leader>6', function() vim.api.nvim_echo({{'use `grn` instead'}}, false, {}) end, opts)
+    vim.keymap.set('n', '<leader>G', function() vim.api.nvim_echo({{'use `grr` instead'}}, false, {}) end, opts)
+    vim.keymap.set('n', '<leader>o', function() vim.api.nvim_echo({{'use `gO` instead'}}, false, {}) end, opts)
+
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      callback = function() vim.lsp.buf.format() end,
+    })
+
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if client:supports_method('textDocument/completion') then
+      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+    end
   end,
 })
 
-vim.lsp.config('rust_analyzer', {
+vim.lsp.config.rust_analyzer = {
+  cmd = { 'rust-analyzer' },
+  root_markers = { 'Cargo.toml', 'Cargo.lock' },
+  filetypes = { 'rust' },
   settings = {
-    ["rust-analyzer"] = {
-      cargo = { features = 'all' },
-      check = { command = 'clippy' },
-      completion = {
-        postfix = { enable = false },
-      },
+    cargo = { features = 'all' },
+    check = { command = 'clippy' },
+    completion = {
+      postfix = { enable = false },
     },
   },
-})
+}
 
-vim.lsp.enable('rust_analyzer')
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.rs",
-  callback = function()
-    vim.lsp.buf.format()
-  end,
-})
+vim.lsp.enable({'rust_analyzer'})
 
 -- Enable diagnostics
 vim.diagnostic.config({
@@ -175,27 +163,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Go to the first non-whitespace character of the line more easily
 vim.keymap.set({ 'n', 'v' }, '0', '^')
 
--- Treat long lines as break lines
+-- Treat a wrapped line as multiple lines
 vim.keymap.set({'n', 'v'}, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 vim.keymap.set({'n', 'v'}, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
-vim.keymap.set('n', '<leader>f', function()
-  require('fzf-lua').live_grep()
-end)
-
-vim.keymap.set('n', '<leader>g', function()
-  require('fzf-lua').grep_cword()
-end)
-
-vim.keymap.set('n', '<leader>r', function()
-  require('fzf-lua').files()
-end)
-
--- LSP key bindings
-vim.keymap.set({'n', 'v'}, '<leader>.', vim.lsp.buf.code_action)
-vim.keymap.set('n', '<leader>6', vim.lsp.buf.rename)
-vim.keymap.set('n', '<leader>G', require('fzf-lua').lsp_references)
-vim.keymap.set('n', '<leader>o', require('fzf-lua').lsp_document_symbols)
+vim.keymap.set('n', '<leader>f', require('fzf-lua').live_grep)
+vim.keymap.set('n', '<leader>g', require('fzf-lua').grep_cword)
+vim.keymap.set('n', '<leader>r', require('fzf-lua').files)
 
 -- Key bindings for splits
 vim.keymap.set('n', '<leader>s', '<C-w>s')
