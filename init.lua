@@ -65,10 +65,9 @@ require('gitsigns').setup{
 -- Completion
 --
 -- menuone: popup even when there's only one match
--- noinsert: Do not insert text until a selection is made
 -- noselect: Do not select, force user to select one from the menu
 -- fuzzy: more flexible matching
-vim.o.completeopt = "menuone,noinsert,noselect,fuzzy"
+vim.opt.completeopt = { 'menuone', 'noselect', 'fuzzy' }
 
 -- Limit height (default is available screen height)
 vim.opt.pumheight = 12
