@@ -2,19 +2,7 @@
 set fish_greeting
 
 function fish_prompt
-  if not set -q __fish_git_prompt_show_informative_status
-    set -g __fish_git_prompt_show_informative_status 1
-  end
-
-  if not set -q __fish_git_prompt_color_branch
-    set -g __fish_git_prompt_color_branch brmagenta
-  end
-
-  if not set -q __fish_git_prompt_color_stagedstate
-    set -g __fish_git_prompt_color_stagedstate yellow
-  end
-
-  printf '%s%s%s%s> ' (set_color $fish_color_cwd) (prompt_pwd) (set_color normal) (fish_git_prompt)
+  printf '%s%s%s> ' (set_color $fish_color_cwd) (prompt_pwd) (set_color normal)
 end
 
 
@@ -62,7 +50,6 @@ alias ci 'cargo install'
 alias cu 'cargo update --verbose'
 alias ct 'cargo test'
 
-alias adbreset 'adb kill-server && adb devices'
 alias lc 'adb shell logcat --format=time,color'
 
 function v
@@ -98,10 +85,8 @@ set ANDROID_SDK ~/Android/Sdk
 set -gx ANDROID_HOME $ANDROID_SDK
 
 fish_add_path ~/bin
-fish_add_path ~/go/bin
 fish_add_path ~/.cargo/bin
 fish_add_path $ANDROID_SDK/platform-tools
-fish_add_path $ANDROID_SDK/build-tools/35.0.0
 fish_add_path $JAVA_HOME/bin
 
 set -gx HOMEBREW_PREFIX "/home/linuxbrew/.linuxbrew";
