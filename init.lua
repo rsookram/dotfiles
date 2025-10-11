@@ -83,7 +83,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     vim.keymap.set('n', '<leader>p', function() vim.api.nvim_echo({{'use `<C-s>` in insert mode instead'}}, false, {}) end, opts)
     vim.keymap.set('n', 'gh', function() vim.api.nvim_echo({{'use `<C-w>d` instead'}}, false, {}) end, opts)
-    vim.keymap.set({'n', 'v'}, '<leader>.', function() vim.api.nvim_echo({{'use `gra` instead'}}, false, {}) end, opts)
     vim.keymap.set('n', '<leader>6', function() vim.api.nvim_echo({{'use `grn` instead'}}, false, {}) end, opts)
     vim.keymap.set('n', '<leader>G', function() vim.api.nvim_echo({{'use `grr` instead'}}, false, {}) end, opts)
     vim.keymap.set('n', '<leader>o', function() vim.api.nvim_echo({{'use `gO` instead'}}, false, {}) end, opts)
